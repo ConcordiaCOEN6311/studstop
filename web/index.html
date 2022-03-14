@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudStop</title>
+    <base href="/studstop/"/>
+    <link rel="stylesheet" href="static/css/minireset.css" />
+    <link rel="stylesheet" href="static/css/common.css" />
+    <link rel="stylesheet" href="static/css/iconfont.css" />
+    <link rel="stylesheet" href="static/css/index.css" />
+    <link rel="stylesheet" href="static/css/swiper.min.css" />
+    <style>
+      input::-webkit-input-placeholder {
+        color: #000000;
+        font-size: 18px;
+      }
+    </style>
+
+  </head>
+  <body>
+    <div id="app">
+      <div class="topbar">
+        <div class="w">
+          <div class="topbar-right">
+            <a href="pages/user/login.html" class="login">Login</a>
+            <a href="pages/user/register.html" class="register">Register</a>
+            <a href="#" class="cart iconfont icon-gouwuche">
+              Cart
+              <!-- <div class="cart-num">3</div> -->
+            </a>
+            <a href="#" class="admin">Staff</a>
+          </div>
+        </div>
+      </div>
+      <div class="header w">
+        <a href="#" class="header-logo"></a>
+        <div class="header-nav">
+        </div>
+        <div class="header-search">
+          <input type="text" placeholder="Search book..." />
+          <button onclick="#" class="iconfont icon-search"></button>
+        </div>
+      </div>
+      <div class="banner w clearfix" >
+        <div class="banner-left">
+          <ul>
+            <li>
+              <a href="">
+                <span>Concordia TextBooks</span>
+                <i class="iconfont icon-jiantou"></i
+              ></a>
+            </li>
+            <li>
+              <a href="">
+                <span>Computer Tech</span>
+                <i class="iconfont icon-jiantou"></i
+              ></a>
+            </li>
+            <li>
+              <a href="">
+                <span>Science Math</span>
+                <i class="iconfont icon-jiantou"></i
+              ></a>
+            </li>
+            <li>
+              <a href="">
+                <span>Literature Fiction </span>
+                <i class="iconfont icon-jiantou"></i
+              ></a>
+            </li>
+            <li>
+              <a href="">
+                <span>Sci-Fi Fantasy</span>
+                <i class="iconfont icon-jiantou"></i
+              ></a>
+            </li>
+            <li>
+              <a href="">
+                <span>Arts Music</span>
+                <i class="iconfont icon-jiantou"></i
+              ></a>
+            </li>
+            <li>
+              <a href="">
+                <span>Health Fitness</span>
+                <i class="iconfont icon-jiantou"></i
+                ></a>
+            </li>
+          </ul>
+        </div>
+        <div class="banner-right">
+          <div class="swiper-container">
+            <ul class="swiper-wrapper">
+              <li class="swiper-slide">
+                <img src="static/uploads/show4.jpg" alt="">
+              </li>
+              <li class="swiper-slide">
+                <img src="static/uploads/show2.jpg" alt="">
+              </li>
+              <li class="swiper-slide">
+                <img src="static/uploads/show3.jpg" alt="">
+              </li>
+            </ul>
+            <div class="swiper-button-prev"></div>
+
+            <div class="swiper-button-next"></div>
+
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+      </div>
+      <div class="books-list ">
+        <div class="w">
+          <div class="list">
+            <div class="list-header">
+              <div class="title">BOOK LIST</div>
+            </div>
+            <div class="list-content">
+              <div class="list-item">
+                <img src="static/uploads/book1.jpg" alt="">
+                <p>Title:A Brief History of Computing</p>
+                <p>Authors:Gerard O'Regan</p>
+                <p>Price:$45.80</p>
+                <p>Sales:230</p>
+                <p>Stock:1000</p>
+                <button>Add to cart</button>
+              </div>
+              <div href="" class="list-item">
+                <img src="static/uploads/book2.jpg" alt="">
+                <p>Title:The Computer Engineering Handbook</p>
+                <p>Authors:Vojin G. Oklobdzija</p>
+                <p>Price:$60.00</p>
+                <p>Sales:150</p>
+                <p>Stock:800</p>
+                <button>Add to cart</button>
+              </div>
+              <div href="" class="list-item">
+                <img src="static/uploads/book3.jpg" alt="">
+                <p>Title:Software Engineering</p>
+                <p>Authors:Deepak Jain</p>
+                <p>Price:80.50</p>
+                <p>Sales:80</p>
+                <p>Stock:500</p>
+                <button>Add to cart</button>
+              </div>
+              <div href="" class="list-item">
+                <img src="static/uploads/book4.jpg" alt="">
+                <p>Title:Computer Engineering</p>
+                <p>Authors:Henry Martin</p>
+                <p>Price:$180.00</p>
+                <p>Sales:280</p>
+                <p>Stock:100</p>
+                <button>Add to cart</button>
+              </div>
+              <div href="" class="list-item">
+                <img src="static/uploads/book5.jpg" alt="">
+                <p>Title:Basic Computer Engineering</p>
+                <p>Authors:Rajiv Gandi</p>
+                <p>Price:$90.80</p>
+                <p>Sales:100</p>
+                <p>Stock:500</p>
+                <button>Add to cart</button>
+              </div>
+              <div href="" class="list-item">
+                <img src="static/uploads/book6.jpg" alt="">
+                <p>Title:Electrical & Computer Engineering</p>
+                <p>Authors:Nong Ad</p>
+                <p>Price:$100.80</p>
+                <p>Sales:50</p>
+                <p>Stock:700</p>
+                <button>Add to cart</button>
+              </div>
+              <div href="" class="list-item">
+                <img src="static/uploads/book7.jpg" alt="">
+                <p>Title:Hackers</p>
+                <p>Authors:Steven Levy</p>
+                <p>Price:$90.80</p>
+                <p>Sales:120</p>
+                <p>Stock:300</p>
+                <button>Add to cart</button>
+              </div>
+              <div href="" class="list-item">
+                <img src="static/uploads/book8.jpg" alt="">
+                <p>Title:Information Technology</p>
+                <p>Authors:A.J.Newton</p>
+                <p>Price:$150.60</p>
+                <p>Sales:90</p>
+                <p>Stock:120</p>
+                <button>Add to cart</button>
+              </div>
+              <div href="" class="list-item">
+                <img src="static/uploads/book9.jpg" alt="">
+                <p>Title:Computer Science</p>
+                <p>Authors:Roman E. Maeder</p>
+                <p>Price:$90.95</p>
+                <p>Sales:20</p>
+                <p>Stock:70</p>
+                <button>Add to cart</button>
+              </div>
+              <div href="" class="list-item">
+                <img src="static/uploads/book10.jpg" alt="">
+                <p>Title:Electronic Principles</p>
+                <p>Authors:Albert Malvino</p>
+                <p>Price:$50.00</p>
+                <p>Sales:90</p>
+                <p>Stock:300</p>
+                <button>Add to cart</button>
+              </div>
+
+            </div>
+            <div class="list-footer">
+                <div>First</div>
+                <div>Previous</div>
+                <ul><li class="active">1</li><li>2</li><li>3</li></ul>
+                <div>Next</div>
+                <div>End</div>
+                <span>Total 10</span>
+                <span>Go to</span>
+                <input type="text">
+                <span>Page</span>
+                <button>Confirm</button>
+            </div>
+          </div>
+        </div>
+       
+      </div>
+
+      <div class="books">
+        <div class="w">
+          <div class="seckill">
+            <div class="seckill-header">
+              <div class="titleBS">
+                BEST SELLER
+              </div>
+            </div>
+            <div class="seckill-content">
+              <a href="" class="books-sec">
+                <img src="static/uploads/bs1.jpg" alt="">
+                <p>Java</p>
+                <div>
+                  <span class="cur-price">$70.90</span>
+                </div>
+                <button>Buy now</button>
+              </a>
+
+                  <a href="" class="books-sec">
+                    <img src="static/uploads/bs2.jpg" alt="">
+                    <p>Computer Programming</p>
+                    <div>
+                      <span class="cur-price">$108.90</span>
+                    </div>
+                    <button>Buy now</button>
+                  </a>
+
+                  <a href="" class="books-sec">
+                    <img src="static/uploads/bs3.jpg" alt="">
+                    <p>Compiler Design</p>
+                    <div>
+                      <span class="cur-price">$102.50</span>
+                    </div>
+                    <button>Buy now</button>
+                  </a>
+                  <a href="" class="books-sec">
+                    <img src="static/uploads/bs4.jpg" alt="">
+                    <p>Cloud Computing</p>
+                    <div>
+                      <span class="cur-price">$80.60</span>
+                    </div>
+                    <button>Buy now</button>
+                  </a>
+                  <a href="" class="books-sec">
+                    <img src="static/uploads/bs5.jpg" alt="">
+                    <p>Electronics & Telecommunication</p>
+                    <div>
+                      <span class="cur-price">$125.50</span>
+                    </div>
+                    <button>Buy now</button>
+                  </a>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="w">
+          <div class="top">
+            <ul>
+              <li>
+                <a href="">
+                  <span></span>
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  <span></span>
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  <span></span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="content">
+
+        </div>
+        <div class="down">
+          StudStop.Copyright ©2022
+        </div>
+      </div>
+     
+
+    </div>
+    <script src="static/script/swiper.min.js"></script>
+    <script>
+      var swiper = new Swiper('.swiper-container', {
+        autoplay: true,
+        pagination: {
+          el: '.swiper-pagination',
+          dynamicBullets: true
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
+        }
+      })
+    </script>
+  </body>
+</html>
