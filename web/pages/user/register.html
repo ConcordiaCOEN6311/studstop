@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <base href="/studstop/"/>
+    <title>Student register</title>
+    <link rel="stylesheet" href="static/css/register_page.css" />
+    <script src="static/script/vue.js"></script>
+
+</head>
+<body>
+<div id="appRegister">
+<div class="wrapper">
+    <div class="title">
+        Student Registration
+    </div>
+    <form action="register" method="post">
+    <div class="form">
+        <div class="inputfield">
+            <label>First Name</label>
+            <input type="text" class="input" name="firstname" placeholder="First Name" v-model.trim="firstname" @blur="checkFirstname"/>
+        </div>
+        <span class="errMessReg" v-show="errorMsgFirstname">First name must be at least 1 character</span>
+
+        <div class="inputfield">
+            <label>Last Name</label>
+            <input type="text" class="input" name="lastname" placeholder="Last Name" v-model.trim="lastname" @blur="checkLastname"/>
+        </div>
+        <span class="errMessReg" v-show="errorMsgLastname">Last name must be at least 1 character</span>
+
+        <div class="inputfield">
+            <label>Password</label>
+            <input type="password" class="input" name="password" placeholder="Password" v-model="password" @blur="checkPassword"/>
+        </div>
+        <span class="errMessReg" v-show="errorMsgPsw">At least 8-16 characters, 1 uppercase letter, lowercase letter and 1 number</span>
+
+        <div class="inputfield">
+            <label>Confirm Password</label>
+            <input type="password" class="input" placeholder="Confirm Password" v-model="passwordConfirm" @blur="checkCfmPassword"/>
+        </div>
+        <span class="errMessReg" v-show="errorMsgCfmpsw">The password entered does not match</span>
+
+        <div class="inputfield">
+            <label>Email Address</label>
+            <input type="text" class="input" name="email" placeholder="Email Address" v-model.trim="email" @blur="checkEmail"/>
+        </div>
+        <span class="errMessReg" v-show="errorMsgEmail">Please enter the correct email format</span>
+
+        <div class="inputfield">
+            <label>Phone Number</label>
+            <input type="text" class="input" name="phoneNo" placeholder="Phone Number" v-model.trim="phoneNo" @blur="checkPhoneno"/>
+        </div>
+        <span class="errMessReg" v-show="errorMsgPhoneno">Please enter the correct phone number format</span>
+
+        <div class="inputfield">
+            <input type="submit" value="Register" class="btn" @click="registerCheck" />
+        </div>
+
+        <div class="inputfield">
+            <label>Already have an account?</label>
+            <a id="signin" href="javascript:showPage('appRegister','appLogin')">Sign In</a>
+        </div>
+    </div>
+    </form>
+</div>
+</div>
+<script>
+    var vue_Register = new Vue({
+        "el":"#appRegister",
+        "data":{
+            "firstname":"",
+            "lastname":"",
+            "password":"",
+            "passwordConfirm":"",
+            "email":"",
+            "phoneNo":"",
+            "code":"",
+            "errorMsgFirstname":false,
+            "errorMsgLastname":false,
+            "errorMsgPsw":false,
+            "errorMsgCfmpsw":false,
+            "errorMsgEmail":false,
+            "errorMsgPhoneno":false
+        },
+        "methods":{
+            checkFirstname(event){
+                var firstnameRegExp = /^[A-Za-z_]{1,100}$/;
+                var regFirstnameTest = firstnameRegExp.test(this.firstname);
+                if(!regFirstnameTest){
+                    this.errorMsgFirstname = true;
+                    event.preventDefault();
+                }else{
+                    this.errorMsgFirstname = false;
+                }
+            },
+            checkLastname(event){
+                var lastnameRegExp = /^[A-Za-z_]{1,100}$/;
+                var regLastnameTest = lastnameRegExp.test(this.lastname);
+                if(!regLastnameTest){
+                    this.errorMsgLastname = true;
+                    event.preventDefault();
+                }else{
+                    this.errorMsgLastname = false;
+                }
+            },
+            checkPassword(event){
+                var passwordRegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[\s\S]{8,16}$/ ;
+                var regPswTest = passwordRegExp.test(this.password);
+                if(!regPswTest){
+                    this.errorMsgPsw = true;
+                    event.preventDefault();
+                }else{
+                    this.errorMsgPsw = false;
+                }
+            },
+            checkCfmPassword(event){
+                if(this.password != this.passwordConfirm){
+                    this.errorMsgCfmpsw = true;
+                    event.preventDefault();
+                }else{
+                    this.errorMsgCfmpsw = false;
+                }
+            },
+            checkEmail(event){
+                var emailRegExp = /^[a-zA-Z0-9_\.-]+@([a-zA-Z0-9-]+[\.]{1})+[a-zA-Z]+$/;
+                var regEmailTest = emailRegExp.test(this.email);
+                if(!regEmailTest){
+                    this.errorMsgEmail = true;
+                    event.preventDefault();
+                }else{
+                    this.errorMsgEmail = false;
+                }
+            },
+            checkPhoneno(event){
+                var phonenoRegExp = /^\d{10}$/;
+                var regPhonenoTest = phonenoRegExp.test(this.phoneNo);
+                if(!regPhonenoTest){
+                    this.errorMsgPhoneno = true;
+                    event.preventDefault();
+                }else{
+                    this.errorMsgPhoneno = false;
+                }
+            },
+
+            registerCheck(event){
+                this.checkFirstname(event);
+                this.checkLastname(event);
+                this.checkPassword(event);
+                this.checkPhoneno(event);
+                this.checkCfmPassword(event);
+                this.checkEmail(event);
+            }
+        }
+
+    });
+</script>
+
+<div id="appLogin" style="display: none">
+    <div class="wrapper">
+        <div class="title">
+            Student Login
+        </div>
+        <form action="login" method="post">
+            <div class="form">
+                <div class="inputfield">
+                    <label>Email Address</label>
+                    <input type="text" class="input" name="email" placeholder="Email Address" v-model.trim="email"/>
+                </div>
+                <span class="errMessReg" v-show="showErrMsgEmail">{{errormsg}}</span>
+
+                <div class="inputfield">
+                    <label>Password</label>
+                    <input type="password" class="input" name="password" placeholder="Password" v-model.trim="password"/>
+                </div>
+                <span class="errMessReg" v-show="showErrMsgPassword">{{errormsg}}</span>
+
+                <div class="inputfield">
+                    <input type="submit" value="Sign In" class="btn" @click="loginCheck($event)" />
+                </div>
+
+                <div class="inputfield">
+                    <label>Do not have an account?</label>
+                    <a href="javascript:showPage('appLogin','appRegister')">Register</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    var vue_login = new Vue({
+        "el":"#appLogin",
+        "data":{
+            "email":"",
+            "password":"",
+            "errorMsg":"",
+            "showErrMsgEmail":false,
+            "showErrMsgPassword":false
+        },
+        "methods":{
+            loginCheck(event){
+                if(this.email != ""){
+                    if(this.password == ""){
+                        this.showErrMsgEmail = false;
+                        this.showErrMsgPassword = true;
+                        event.preventDefault();
+                        this.errormsg = "Password cannot be empty";
+                    }
+                }else{
+                    this.showErrMsgPassword = false;
+                    this.showErrMsgEmail = true;
+                    event.preventDefault();
+                    this.errormsg = "Email address cannot be empty";
+                }
+            },
+        }
+    });
+</script>
+<script>
+    function showPage(div_hide, div_show){
+        document.getElementById(div_hide).style.display='none';
+        document.getElementById(div_show).style.display='block';
+    }
+</script>
+
+</body>
+</html>
