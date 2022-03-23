@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 /**
  * @Author: Wei Qi
- * @Package: com.atguigu.dao
+ * @Package: com.concordia.dao
  * @Date: 2/19/2022 20:36
  */
 public class StudentDaoImpl extends BaseDao implements StudentDao {

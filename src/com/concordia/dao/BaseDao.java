@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * @Author: Wei Qi
- * @Package: com.atguigu.dao
+ * @Package: com.concordia.dao
  * @Date: 2/20/2022 00:49
  */
 public class BaseDao<T> {
