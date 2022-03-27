@@ -4,6 +4,7 @@ import com.concordia.utils.JDBCUtil;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -56,6 +57,15 @@ public class BaseDao<T> {
 	public List<T> getBeanList(Class<T> clazz, String sql, Object... params){
 		try {
 			return queryRunner.query(JDBCUtil.getConnection(), sql, new BeanListHandler<>(clazz), params);
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+	}
+
+	public int getTotalCount(String sql,Object... params){
+		try {
+			Long count = (Long) queryRunner.query(JDBCUtil.getConnection(),sql,new ScalarHandler(),params);
+			return count.intValue();
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
 		}

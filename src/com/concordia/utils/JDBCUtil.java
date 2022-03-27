@@ -19,11 +19,11 @@ public class JDBCUtil {
     static {
         try {
             //1. Use the class loader to read the configuration file and convert it to a byte input stream
-         /*   //testing connection
-            InputStream is = JDBCUtil.class.getClassLoader().getResourceAsStream("druid.properties");*/
+            //testing connection
+            InputStream is = JDBCUtil.class.getClassLoader().getResourceAsStream("druid.properties");
 
            //production connection
-            InputStream is = JDBCUtil.class.getClassLoader().getResourceAsStream("druid_production.properties");
+//            InputStream is = JDBCUtil.class.getClassLoader().getResourceAsStream("druid_production.properties");
             //2. Load byte input stream using Properties object
             Properties properties = new Properties();
             properties.load(is);
