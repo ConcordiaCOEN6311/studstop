@@ -22,7 +22,7 @@ public class BookDaoImpl extends BaseDao implements BookDao {
 	}
 
 	@Override
-	public List<Book> getBookGridPageByCatId(int index, int currentCount, int catId) throws SQLException {
+	public List<Book> getBookPageByCatId(int index, int currentCount, int catId) throws SQLException {
 		String sql = "select book_id as bookId,book_name as bookName,author,price,category_id as categoryId,sales,sale_stock as saleStock,rent_stock as rentStock,imgPath,discount,rate,description,create_date as creatDate from book where book.category_id=? limit ? , ?";
 		return getBeanList(Book.class,sql,catId,index,currentCount);
 	}

@@ -203,7 +203,7 @@
 								<div class="tab-3">
 									<ul>
 										<li class="active"><a th:href="@{/book(method='toShopGridPageByCatId',catId=${session.catId})}"><i class="fa fa-th-large"></i>Grid</a></li>
-										<li><a href="#list" data-toggle="tab"><i class="fa fa-bars"></i>List</a></li>
+										<li><a th:href="@{/book(method='toShopListPageByCatId',catId=${session.catId}, catName=${session.catName})}"><i class="fa fa-bars"></i>List</a></li>
 									</ul>
 								</div>
 								<div class="list-page">

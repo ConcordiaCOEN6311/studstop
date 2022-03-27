@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface BookService {
 	List<Category> showCatList() throws Exception;
-	Page findBookGridPageByCatId(int currentPage, int currentCount, int catId) throws Exception;
+	Page findBookPageByCatId(int currentPage, int currentCount, int catId) throws Exception;
 }

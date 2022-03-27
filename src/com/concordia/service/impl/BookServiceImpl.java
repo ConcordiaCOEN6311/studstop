@@ -22,12 +22,12 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public Page findBookGridPageByCatId(int currentPage, int currentCount, int catId) throws Exception {
+	public Page findBookPageByCatId(int currentPage, int currentCount, int catId) throws Exception {
 		Page<Book> bookGridPage = new Page<>();
 		int bookTotalCount = bookDao.getBookTotalCountByCatId(catId);
 		int bookTotalPage = (int) Math.ceil(1.0 * bookTotalCount / currentCount);
 		int index = (currentPage - 1) * currentCount;
-		List<Book> bookGridPageByCatId = bookDao.getBookGridPageByCatId(index,currentCount,catId);
+		List<Book> bookGridPageByCatId = bookDao.getBookPageByCatId(index,currentCount,catId);
 
 		bookGridPage.setInfoList(bookGridPageByCatId);
 		bookGridPage.setCurrentPage(currentPage);

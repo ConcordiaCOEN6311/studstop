@@ -25,7 +25,7 @@ public class BookServlet extends ModelBaseServlet {
 			}
 		}
 		int currentCount = 16;
-		Page<Book> bookGridPage = bookService.findBookGridPageByCatId(currentPage, currentCount, Integer.parseInt(catId));
+		Page<Book> bookGridPage = bookService.findBookPageByCatId(currentPage, currentCount, Integer.parseInt(catId));
 		List<Book> infoList = bookGridPage.getInfoList();
 
 		request.setAttribute("bookGridPage", bookGridPage);
@@ -33,4 +33,50 @@ public class BookServlet extends ModelBaseServlet {
 		request.getSession().setAttribute("catName", catName);
 		processTemplate("book/shop_grid",request,response);
 	}
+	public void toShopListPageByCatId(HttpServletRequest request,HttpServletResponse response) throws Exception {
+		String cp = request.getParameter("currentPage");
+		String catId = request.getParameter("catId");
+		String catName = request.getParameter("catName");
+		int currentPage = 1;
+		if (cp != null) {
+			Integer cpInt = Integer.valueOf(cp);
+			if (cpInt != -1) {
+				currentPage = cpInt;
+			}
+		}
+		int currentCount = 5;
+		Page<Book> bookListPage = bookService.findBookPageByCatId(currentPage, currentCount, Integer.parseInt(catId));
+		List<Book> infoList = bookListPage.getInfoList();
+
+		request.setAttribute("bookListPage", bookListPage);
+		request.getSession().setAttribute("catId", catId);
+		request.getSession().setAttribute("catName", catName);
+		processTemplate("book/shop_list",request,response);
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

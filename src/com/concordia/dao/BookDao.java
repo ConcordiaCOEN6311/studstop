@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface BookDao {
 	List<Category> getCatList() throws SQLException;
-	List<Book> getBookGridPageByCatId(int index, int currentCount, int catId) throws SQLException;
+	List<Book> getBookPageByCatId(int index, int currentCount, int catId) throws SQLException;
 	int getBookTotalCountByCatId(int catId) throws SQLException;
 }
