@@ -16,7 +16,7 @@ public class Book {
 	private String bookName;
 	private String author;
 	private Double price;
-	private String category;
+	private Integer categoryId;
 	private Integer sales;
 	private Integer saleStock;
 	private Integer rentStock;
@@ -36,7 +36,7 @@ public class Book {
 		this.bookName = bookName;
 		this.author = author;
 		this.price = price;
-		this.category = category;
+		this.categoryId = categoryId;
 		this.sales = sales;
 		this.saleStock = saleStock;
 		this.rentStock = rentStock;
@@ -81,12 +81,12 @@ public class Book {
 		this.price = price;
 	}
 
-	public String getCategory() {
-		return category;
+	public Integer getCategoryId() {
+		return categoryId;
 	}
 
-	public void setCategory(String category) {
-		this.category = category;
+	public void setCategoryId(Integer categoryId) {
+		this.categoryId = categoryId;
 	}
 
 	public Integer getSales() {
@@ -122,7 +122,10 @@ public class Book {
 	}
 
 	public String getDiscount() {
-		return discount;
+		if(this.discount == null){
+			this.setDiscount("");
+		}
+		return this.discount;
 	}
 
 	public void setDiscount(String discount) {
@@ -164,8 +167,8 @@ public class Book {
 			BigDecimal bigDecimalPrice = new BigDecimal(price + "");
 			BigDecimal bigDecimalRate = new BigDecimal(numberRate + "");
 
-			this.finalPrice = price - bigDecimalRate.multiply(bigDecimalPrice).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-
+			BigDecimal fp= BigDecimal.valueOf(price - bigDecimalRate.multiply(bigDecimalPrice).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+			this.finalPrice = fp.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
 			return this.finalPrice;
 		}
 	}
@@ -199,7 +202,7 @@ public class Book {
 				", bookName='" + bookName + '\'' +
 				", author='" + author + '\'' +
 				", price=" + price +
-				", category='" + category + '\'' +
+				", category='" + categoryId + '\'' +
 				", sales=" + sales +
 				", saleStock=" + saleStock +
 				", rentStock=" + rentStock +
