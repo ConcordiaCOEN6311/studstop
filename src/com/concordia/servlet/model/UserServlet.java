@@ -27,7 +27,7 @@ public class UserServlet extends ModelBaseServlet {
 		try {
 			BeanUtils.populate(student, parameterMap);
 			studentService.doLogin(student);
-			response.sendRedirect(request.getContextPath() + "index");
+			response.sendRedirect(request.getContextPath() + "/index.html");
 		} catch (Exception e) {
 			e.printStackTrace();
 			//response.getWriter().write("login failed,"+e.getMessage());

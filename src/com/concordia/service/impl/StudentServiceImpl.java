@@ -17,6 +17,7 @@ public class StudentServiceImpl implements StudentService {
 	public void doRegister(Student student) throws Exception {
 		//verify if user exist
 		Student loginStudent = studentDao.findByEmail(student.getEmail());
+		System.out.println(loginStudent.toString());
 		if (loginStudent != null){
 			throw new RuntimeException("Email already exists, registration failed");
 		}
