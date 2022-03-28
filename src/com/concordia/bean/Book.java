@@ -27,11 +27,12 @@ public class Book {
 	private Date creatDate;
 	private Double finalPrice;
 	private String newArrivedIndicator;
+	private String bookDetail;
 
 	public Book() {
 	}
 
-	public Book(Integer bookId, String bookName, String author, Double price, String category, Integer sales, Integer saleStock, Integer rentStock, String imgPath, String discount, Integer rate, String description, Date creatDate, Double discountPrice, String newArrivedIndicator) {
+	public Book(Integer bookId, String bookName, String author, Double price, Integer categoryId, Integer sales, Integer saleStock, Integer rentStock, String imgPath, String discount, Integer rate, String description, Date creatDate, Double finalPrice, String newArrivedIndicator, String bookDetail) {
 		this.bookId = bookId;
 		this.bookName = bookName;
 		this.author = author;
@@ -47,6 +48,7 @@ public class Book {
 		this.creatDate = creatDate;
 		this.finalPrice = finalPrice;
 		this.newArrivedIndicator = newArrivedIndicator;
+		this.bookDetail = bookDetail;
 	}
 
 	public Integer getBookId() {
@@ -195,6 +197,14 @@ public class Book {
 		this.newArrivedIndicator = newArrivedIndicator;
 	}
 
+	public String getBookDetail() {
+		return bookDetail;
+	}
+
+	public void setBookDetail(String bookDetail) {
+		this.bookDetail = bookDetail;
+	}
+
 	@Override
 	public String toString() {
 		return "Book{" +
@@ -202,7 +212,7 @@ public class Book {
 				", bookName='" + bookName + '\'' +
 				", author='" + author + '\'' +
 				", price=" + price +
-				", category='" + categoryId + '\'' +
+				", categoryId=" + categoryId +
 				", sales=" + sales +
 				", saleStock=" + saleStock +
 				", rentStock=" + rentStock +
@@ -211,8 +221,9 @@ public class Book {
 				", rate=" + rate +
 				", description='" + description + '\'' +
 				", creatDate=" + creatDate +
-				", discountPrice=" + finalPrice +
+				", finalPrice=" + finalPrice +
 				", newArrivedIndicator='" + newArrivedIndicator + '\'' +
+				", bookDetail='" + bookDetail + '\'' +
 				'}';
 	}
 }

@@ -28,7 +28,10 @@ public class BookServlet extends ModelBaseServlet {
 		Page<Book> bookGridPage = bookService.findBookPageByCatId(currentPage, currentCount, Integer.parseInt(catId));
 		List<Book> infoList = bookGridPage.getInfoList();
 
+		int index = (currentPage - 1) * currentCount;
+
 		request.setAttribute("bookGridPage", bookGridPage);
+		request.setAttribute("index",index);
 		request.getSession().setAttribute("catId", catId);
 		request.getSession().setAttribute("catName", catName);
 		processTemplate("book/shop_grid",request,response);
@@ -47,11 +50,19 @@ public class BookServlet extends ModelBaseServlet {
 		int currentCount = 5;
 		Page<Book> bookListPage = bookService.findBookPageByCatId(currentPage, currentCount, Integer.parseInt(catId));
 		List<Book> infoList = bookListPage.getInfoList();
-
+		int index = (currentPage - 1) * currentCount;
 		request.setAttribute("bookListPage", bookListPage);
+		request.setAttribute("index",index);
 		request.getSession().setAttribute("catId", catId);
 		request.getSession().setAttribute("catName", catName);
 		processTemplate("book/shop_list",request,response);
+	}
+
+	public void toBookDetailPage(HttpServletRequest request,HttpServletResponse response) throws Exception {
+		String bookId = request.getParameter("bookId");
+		Book bookDetail = bookService.findBookById(Integer.valueOf(bookId));
+		request.setAttribute("bookDetail", bookDetail);
+		processTemplate("book/book_details",request,response);
 	}
 
 }

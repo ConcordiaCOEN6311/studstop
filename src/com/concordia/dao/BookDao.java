@@ -10,4 +10,5 @@ public interface BookDao {
 	List<Category> getCatList() throws SQLException;
 	List<Book> getBookPageByCatId(int index, int currentCount, int catId) throws SQLException;
 	int getBookTotalCountByCatId(int catId) throws SQLException;
+	Book getBookById(Integer bookId);
 }

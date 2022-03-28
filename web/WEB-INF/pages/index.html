@@ -101,8 +101,8 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="my-cart">
                             <ul>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i>My Cart</a>
-                                    <span>2</span>
+                                <li><a href="cart?method=toCartPage"><i class="fa fa-shopping-cart"></i>My Cart</a>
+                                    <span th:if="${session.cart != null}" th:text="${session.cart.totalCount}"></span>
                                     <div class="mini-cart-sub">
                                         <div class="cart-product">
                                             <div class="single-cart">
@@ -169,19 +169,9 @@
                                 <input type="text" placeholder="Search entire store here..." />
                                 <a href="#"><i class="fa fa-search"></i></a>
                                 <div class="pos-search" >
-                                    <select class="bootstrap-select">
+                                     <select class="bootstrap-select" id="catId" th:field="*{catId}">
                                         <option value="0">All Categories</option>
-                                        <option value="1">Medicine & Health Sciences</option>
-                                        <option value="2">Computer Science & Information Systems</option>
-                                        <option value="3">Sciences</option>
-                                        <option value="4">Engineering</option>
-                                        <option value="5">Business & Finance</option>
-                                        <option value="6">Humanities</option>
-                                        <option value="7">Language</option>
-                                        <option value="8">Law</option>
-                                        <option value="9">Test Prep & Study Guides</option>
-                                        <option value="10">Education</option>
-                                        <option value="11">Reference</option>
+                                        <option th:each="catItem : ${catList}" th:value="${catItem.categoryId}" th:text="${catItem.categoryName}">Medicine & Health Sciences</option>
                                     </select>
                                 </div>
                             </form>

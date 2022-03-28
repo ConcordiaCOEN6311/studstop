@@ -37,4 +37,9 @@ public class BookServiceImpl implements BookService {
 
 		return bookGridPage;
 	}
+
+	@Override
+	public Book findBookById(Integer bookId) throws Exception {
+		return bookDao.getBookById(bookId);
+	}
 }
