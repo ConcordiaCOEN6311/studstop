@@ -99,7 +99,7 @@
 								<ul>
 									<li><a href="cart?method=toCartPage"><i class="fa fa-shopping-cart"></i>My Cart</a>
 										<span th:if="${session.cart != null}" th:text="${session.cart.totalCount}"></span>
-										<div class="mini-cart-sub">
+										<!--<div class="mini-cart-sub">
 											<div class="cart-product">
 												<div class="single-cart">
 													<div class="cart-img">
@@ -133,7 +133,7 @@
 												<a class="view-cart" href="cart.html">view cart</a>
 												<a href="checkout.html">Check out</a>
 											</div>
-										</div>
+										</div>-->
 									</li>
 								</ul>
 							</div>
@@ -205,7 +205,7 @@
 									<tbody>
 										<tr th:if="${session.cart != null}" th:each="cartItemEntry: ${session.cart.cartItemMap}">
 											<td class="product-thumbnail"><a href="#"><img th:src="${cartItemEntry.value.imgPath}" alt="man" /></a></td>
-											<td class="product-name"><a th:src="${cartItemEntry.value.bookName}">bookname</a></td>
+											<td class="product-name"><a th:text="${cartItemEntry.value.bookName}">bookname</a></td>
 											<td class="product-price"><span class="amount" th:text="'$' + ${cartItemEntry.value.price}"></span></td>
 											<td class="product-quantity"><input type="number" th:value="${cartItemEntry.value.count}" value="1"></td>
 											<td class="product-subtotal" th:text="'$'+${cartItemEntry.value.amount}">amount</td>

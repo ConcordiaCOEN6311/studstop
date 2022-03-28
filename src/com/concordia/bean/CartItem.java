@@ -1,6 +1,7 @@
 package com.concordia.bean;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 
 /**
  * @Author: Wei Qi
@@ -69,7 +70,9 @@ public class CartItem {
 	public Double getAmount() {
 		BigDecimal bigDecimalPrice = new BigDecimal(price + "");
 		BigDecimal bigDecimalCount = new BigDecimal(count + "");
-		this.amount = bigDecimalCount.multiply(bigDecimalPrice).doubleValue();
+
+		BigDecimal fp= BigDecimal.valueOf(bigDecimalCount.multiply(bigDecimalPrice).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+		this.amount = fp.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
 		return this.amount;
 	}
 

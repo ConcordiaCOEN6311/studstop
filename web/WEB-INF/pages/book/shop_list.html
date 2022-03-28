@@ -78,7 +78,7 @@
 								<ul>
 									<li><a href="cart?method=toCartPage"><i class="fa fa-shopping-cart"></i>My Cart</a>
 										<span th:if="${session.cart != null}" th:text="${session.cart.totalCount}"></span>
-										<div class="mini-cart-sub">
+										<!--<div class="mini-cart-sub">
 											<div class="cart-product">
 												<div class="single-cart">
 													<div class="cart-img">
@@ -112,7 +112,7 @@
 												<a class="view-cart" href="../cart/cart.html">view cart</a>
 												<a href="checkout.html">Check out</a>
 											</div>
-										</div>
+										</div>-->
 									</li>
 								</ul>
 							</div>
@@ -257,7 +257,7 @@
 												</div>
 												<div class="product-link">
 													<div class="product-button">
-														<a th:href="@{/cart(method='addCartItem',id=${book.bookId})}" title="Add to cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+														<a th:href="@{/cart(method='addCartItem',id=${book.bookId}, view='list', catId=${session.catId},catName=${session.catName}, currentPage=${bookListPage.currentPage})}" title="Add to cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 													</div>
 													<div class="add-to-link">
                                                         <ul>
