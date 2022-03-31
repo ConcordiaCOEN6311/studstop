@@ -65,6 +65,57 @@ public class BookServlet extends ModelBaseServlet {
 		processTemplate("book/book_details",request,response);
 	}
 
+	/**
+	 *
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
+
+	public void toSearchResultsListByName(HttpServletRequest request, HttpServletResponse response) throws Exception{
+
+		String cp = request.getParameter("currentPage");
+		String bookName = request.getParameter("bookName");
+		int currentPage = 1;
+		if (cp != null) {
+			Integer cpInt = Integer.valueOf(cp);
+			if (cpInt != -1) {
+				currentPage = cpInt;
+			}
+		}
+		int currentCount = 5;
+		Page<Book> bookListPage = bookService.findBookPageByName(currentPage, currentCount, bookName);
+		List<Book> infoList = bookListPage.getInfoList();
+		int index = (currentPage - 1) * currentCount;
+		request.setAttribute("bookListPage", bookListPage);
+		request.setAttribute("index",index);
+		request.getSession().setAttribute("bookName", bookName);
+		processTemplate("book/search_list", request, response);
+
+	}
+
+	public void toSearchResultsGridByName(HttpServletRequest request, HttpServletResponse response) throws Exception{
+
+		String cp = request.getParameter("currentPage");
+		String bookName = request.getParameter("bookName");
+		int currentPage = 1;
+		if (cp != null) {
+			Integer cpInt = Integer.valueOf(cp);
+			if (cpInt != -1) {
+				currentPage = cpInt;
+			}
+		}
+		int currentCount = 16;
+		Page<Book> bookGridPage= bookService.findBookPageByName(currentPage, currentCount, bookName);
+		List<Book> infoList = bookGridPage.getInfoList();
+		int index = (currentPage - 1) * currentCount;
+		request.setAttribute("bookGridPage", bookGridPage);
+		request.setAttribute("index",index);
+		request.getSession().setAttribute("bookName", bookName);
+		processTemplate("book/search_grid", request, response);
+
+	}
+
 }
 
 

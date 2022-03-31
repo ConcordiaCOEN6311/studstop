@@ -42,4 +42,31 @@ public class BookServiceImpl implements BookService {
 	public Book findBookById(Integer bookId) throws Exception {
 		return bookDao.getBookById(bookId);
 	}
+
+
+	/**
+	 *
+	 * @param currentPage
+	 * @param currentCount
+	 * @param bookName
+	 * @return
+	 * @throws Exception
+	 */
+
+	@Override
+	public Page findBookPageByName(int currentPage, int currentCount, String bookName) throws Exception {
+		Page<Book> bookGridPage = new Page<>();
+		int bookTotalCount = bookDao.getBookTotalCountByName(bookName);
+		int bookTotalPage = (int) Math.ceil(1.0 * bookTotalCount / currentCount);
+		int index = (currentPage - 1) * currentCount;
+		List<Book> bookGridPageByName = bookDao.getBookPageByName(index,currentCount,bookName);
+
+		bookGridPage.setInfoList(bookGridPageByName);
+		bookGridPage.setCurrentPage(currentPage);
+		bookGridPage.setCurrentCount(currentCount);
+		bookGridPage.setTotalCount(bookTotalCount);
+		bookGridPage.setTotalPage(bookTotalPage);
+
+		return bookGridPage;
+	}
 }
