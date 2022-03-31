@@ -26,26 +26,35 @@ public class UserServlet extends ModelBaseServlet {
 		Student student = new Student();
 		try {
 			BeanUtils.populate(student, parameterMap);
-			studentService.doLogin(student);
-			response.sendRedirect(request.getContextPath() + "/index.html");
+			Student loginUser = studentService.doLogin(student);
+			request.getSession().setAttribute("loginUser",loginUser);
+			processTemplate("index",request,response);
 		} catch (Exception e) {
 			e.printStackTrace();
-			//response.getWriter().write("login failed,"+e.getMessage());
-			response.sendRedirect(request.getContextPath() + "/user?method=toLoginPage");
+			request.setAttribute("errorMessage", "Login Failed," + e.getMessage());
+			processTemplate("user/login",request,response);
 		}
 	}
 	public void doRegister(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		Map<String, String[]> parameterMap = request.getParameterMap();
+		String code = parameterMap.get("code")[0];
+		String checkCode = (String) request.getSession().getAttribute("KAPTCHA_SESSION_KEY");
+		if (checkCode.equalsIgnoreCase(code)) {
 		Student student = new Student();
 		try {
 			BeanUtils.populate(student,parameterMap);
 			studentService.doRegister(student);
-			response.sendRedirect(request.getContextPath() + "/index");
+			request.getSession().setAttribute("loginUser",student);
+			processTemplate("index",request,response);
 			//response.getWriter().write("Register success");
 		} catch (Exception e) {
 			e.printStackTrace();
-			//response.getWriter().write("Register Failed," + e.getMessage());
-			response.sendRedirect(request.getContextPath() + "/user?method=toRegisterPage");
+			request.setAttribute("errorMessage","Register Failed:" + e.getMessage());
+			processTemplate("user/register",request,response);
+		}
+		}else {
+			request.setAttribute("errorMessage","Register Failed: incorrect check code");
+			processTemplate("user/register",request,response);
 		}
 	}
 }

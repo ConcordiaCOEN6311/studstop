@@ -27,6 +27,10 @@
         <servlet-name>CartServlet</servlet-name>
         <servlet-class>com.concordia.servlet.model.CartServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>KaptchaServlet</servlet-name>
+        <servlet-class>com.google.code.kaptcha.servlet.KaptchaServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PortalServlet</servlet-name>
         <url-pattern>/index.html</url-pattern>
@@ -42,5 +46,9 @@
     <servlet-mapping>
         <servlet-name>CartServlet</servlet-name>
         <url-pattern>/cart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>KaptchaServlet</servlet-name>
+        <url-pattern>/kaptcha</url-pattern>
     </servlet-mapping>
 </web-app>
