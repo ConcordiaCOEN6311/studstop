@@ -23,7 +23,7 @@ public class BookDaoImpl extends BaseDao implements BookDao {
 
 	@Override
 	public List<Book> getBookPageByCatId(int index, int currentCount, int catId) throws SQLException {
-		String sql = "select book_id as bookId,book_name as bookName,author,price,category_id as categoryId,sales,sale_stock as saleStock,rent_stock as rentStock,imgPath,discount,rate,description,create_date as creatDate,book_detail as bookDetail from book where book.category_id=? limit ? , ?";
+		String sql = "select book_id as bookId,book_name as bookName,author,price,rent_price as rentPrice,category_id as categoryId,sales,sale_stock as saleStock,rent_stock as rentStock,imgPath,discount,rate,description,create_date as creatDate,book_detail as bookDetail from book where book.category_id=? limit ? , ?";
 		return getBeanList(Book.class,sql,catId,index,currentCount);
 	}
 
@@ -35,7 +35,7 @@ public class BookDaoImpl extends BaseDao implements BookDao {
 
 	@Override
 	public Book getBookById(Integer bookId) {
-		String sql = "select book_id as bookId,book_name as bookName,author,price,category_id as categoryId,sales,sale_stock as saleStock,rent_stock as rentStock,imgPath,discount,rate,description,create_date as creatDate,book_detail as bookDetail from book where book_id=?";
+		String sql = "select book_id as bookId,book_name as bookName,author,price,rent_price as rentPrice,category_id as categoryId,sales,sale_stock as saleStock,rent_stock as rentStock,imgPath,discount,rate,description,create_date as creatDate,book_detail as bookDetail from book where book_id=?";
 		return (Book) getBean(Book.class,sql,bookId);
 	}
 }
