@@ -12,4 +12,14 @@ public interface BookService {
 	List<Category> showCatList() throws Exception;
 	Page findBookPageByCatId(int currentPage, int currentCount, int catId) throws Exception;
 	Book findBookById(Integer bookId) throws Exception;
+
+	/**
+	 *
+	 * @param currentPage
+	 * @param currentCount
+	 * @param bookName
+	 * @return
+	 * @throws Exception
+	 */
+	Page findBookPageByName(int currentPage, int currentCount, String bookName) throws Exception;
 }
