@@ -4,7 +4,6 @@ import com.concordia.bean.Book;
 import com.concordia.bean.Category;
 import com.concordia.dao.BaseDao;
 import com.concordia.dao.BookDao;
-import com.concordia.dao.StudentDao;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -38,4 +37,29 @@ public class BookDaoImpl extends BaseDao implements BookDao {
 		String sql = "select book_id as bookId,book_name as bookName,author,price,category_id as categoryId,sales,sale_stock as saleStock,rent_stock as rentStock,imgPath,discount,rate,description,create_date as creatDate,book_detail as bookDetail from book where book_id=?";
 		return (Book) getBean(Book.class,sql,bookId);
 	}
+
+
+	/**
+	 *
+	 * @param index
+	 * @param currentCount
+	 * @param bookName
+	 * @return
+	 * @throws SQLException
+	 */
+
+	@Override
+	public List<Book> getBookPageByName(int index, int currentCount, String bookName) throws SQLException {
+		String params ="%"+bookName+"%";
+		String sql = "select book_id as bookId,book_name as bookName,author,price,category_id as categoryId,sales,sale_stock as saleStock,rent_stock as rentStock,imgPath,discount,rate,description,create_date as creatDate,book_detail as bookDetail from book where book_name like ? limit ? , ?";
+		return getBeanList(Book.class,sql,params,index,currentCount);
+	}
+
+	@Override
+	public int getBookTotalCountByName(String bookName) throws SQLException {
+		String params ="%"+bookName+"%";
+		String sql = "select count(*) from book where book_name like ?";
+		return getTotalCount(sql,params);
+	}
+
 }
