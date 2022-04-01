@@ -16,6 +16,7 @@ public class Book {
 	private String bookName;
 	private String author;
 	private Double price;
+	private Double rentPrice;
 	private Integer categoryId;
 	private Integer sales;
 	private Integer saleStock;
@@ -32,11 +33,12 @@ public class Book {
 	public Book() {
 	}
 
-	public Book(Integer bookId, String bookName, String author, Double price, Integer categoryId, Integer sales, Integer saleStock, Integer rentStock, String imgPath, String discount, Integer rate, String description, Date creatDate, Double finalPrice, String newArrivedIndicator, String bookDetail) {
+	public Book(Integer bookId, String bookName, String author, Double price, Double rentPrice, Integer categoryId, Integer sales, Integer saleStock, Integer rentStock, String imgPath, String discount, Integer rate, String description, Date creatDate, Double finalPrice, String newArrivedIndicator, String bookDetail) {
 		this.bookId = bookId;
 		this.bookName = bookName;
 		this.author = author;
 		this.price = price;
+		this.rentPrice = rentPrice;
 		this.categoryId = categoryId;
 		this.sales = sales;
 		this.saleStock = saleStock;
@@ -81,6 +83,14 @@ public class Book {
 
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+
+	public Double getRentPrice() {
+		return rentPrice;
+	}
+
+	public void setRentPrice(Double rentPrice) {
+		this.rentPrice = rentPrice;
 	}
 
 	public Integer getCategoryId() {
@@ -212,6 +222,7 @@ public class Book {
 				", bookName='" + bookName + '\'' +
 				", author='" + author + '\'' +
 				", price=" + price +
+				", rentPrice=" + rentPrice +
 				", categoryId=" + categoryId +
 				", sales=" + sales +
 				", saleStock=" + saleStock +

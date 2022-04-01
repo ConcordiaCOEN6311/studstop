@@ -78,41 +78,7 @@
 								<ul>
 									<li><a href="cart?method=toCartPage"><i class="fa fa-shopping-cart"></i>My Cart</a>
 										<span th:if="${session.cart != null}" th:text="${session.cart.totalCount}"></span>
-										<!--<div class="mini-cart-sub">
-											<div class="cart-product">
-												<div class="single-cart">
-													<div class="cart-img">
-														<a href="#"><img src="img/product/1.jpg" alt="book" /></a>
-													</div>
-													<div class="cart-info">
-														<h5><a href="#">Joust Duffle Bag</a></h5>
-														<p>1 x £60.00</p>
-													</div>
-													<div class="cart-icon">
-													    <a href="#"><i class="fa fa-remove"></i></a>
-													</div>
-												</div>
-												<div class="single-cart">
-													<div class="cart-img">
-														<a href="#"><img src="img/product/3.jpg" alt="book" /></a>
-													</div>
-													<div class="cart-info">
-														<h5><a href="#">Chaz Kangeroo Hoodie</a></h5>
-														<p>1 x £52.00</p>
-													</div>
-													<div class="cart-icon">
-                                                        <a href="#"><i class="fa fa-remove"></i></a>
-                                                    </div>
-												</div>
-											</div>
-											<div class="cart-totals">
-												<h5>Total<span>£12.00</span></h5>
-											</div>
-											<div class="cart-bottom">
-												<a class="view-cart" href="../cart/cart.html">view cart</a>
-												<a href="checkout.html">Check out</a>
-											</div>
-										</div>-->
+
 									</li>
 								</ul>
 							</div>
@@ -254,9 +220,12 @@
                                                 </div>
                                             </div>
                                             <div class="product-link">
-                                                <div class="product-button">
+                                                <div class="product-button" th:if="${book.saleStock}>0">
                                                     <a th:href="@{/cart(method='addCartItem',id=${book.bookId}, view='grid', catId=${session.catId},catName=${session.catName}, currentPage=${bookGridPage.currentPage})}" title="Add to cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                                 </div>
+												<div class="product-button" th:unless="${book.saleStock}>0">
+													<a title="Out of stock"><i class="fa fa-shopping-bag"></i>Out of stock</a>
+												</div>
                                                 <div class="add-to-link">
                                                     <ul>
                                                         <li><a th:href="@{/book(method='toBookDetailPage',bookId=${book.bookId})}" title="Details"><i class="fa fa-external-link"></i></a></li>
