@@ -1,58 +1,86 @@
 package com.concordia.bean;
 
 import java.text.ParseException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 public class RentalCart {
-    private Map<Integer,RentalItem> rentalCartItemMap = new HashMap<>();
+    private Map<Integer,CartItem> cartItemMap = new HashMap<>();
+    private String appointmentTime;
+    private Date appointmentDate;
 
+    @Override
+    public String toString() {
+        return "RentalCart{" +
+                "cartItemMap=" + cartItemMap +
+                ", appointmentTime='" + appointmentTime + '\'' +
+                ", appointmentDate=" + appointmentDate +
+                '}';
+    }
 
-    public void addRentalBookToCart(Book book, RentalItem rentalItem) throws ParseException {
-        if (rentalCartItemMap.containsKey(book.getBookId())) {
+    public String getAppointmentTime() {
+        return appointmentTime;
+    }
+
+    public void setAppointmentTime(String appointmentTime) {
+        this.appointmentTime = appointmentTime;
+    }
+
+    public Date getAppointmentDate() {
+        return appointmentDate;
+    }
+
+    public void setAppointmentDate(Date appointmentDate) {
+        this.appointmentDate = appointmentDate;
+    }
+
+    public void addBookToCart(Book book) throws ParseException {
+        if (cartItemMap.containsKey(book.getBookId())) {
             //not first time to add book to cart
             itemCountIncrease(book.getBookId());
         }else {
             //fist time to add book to cart, count = 1
-            RentalItem rentalCartItem = new RentalItem(rentalItem.getRentalId(), book.getBookId(),book.getBookName(),rentalItem.getStudentId(),rentalItem.getAppointmentDate(), rentalItem.getReturnDate(), rentalItem.getRentalFee(), rentalItem.getCreatedDate(), book.getImgPath(),1, book.getFinalPrice());
-            rentalCartItemMap.put(rentalCartItem.getBookId(),rentalCartItem);
+            CartItem cartItem = new CartItem(book.getBookId(),book.getBookName(),book.getImgPath(),book.getFinalPrice(), 1, book.getFinalPrice());
+            cartItemMap.put(cartItem.getBookId(),cartItem);
         }
     }
 
-    public Map<Integer,RentalItem> getRentalCartItemMap(){
-        return rentalCartItemMap;
+    public Map<Integer,CartItem> getCartItemMap(){
+        return cartItemMap;
     }
 
     public void itemCountIncrease(Integer bookId){
-        RentalItem rentalCartItem = rentalCartItemMap.get(bookId);
-        rentalCartItem.countIncrease();
+        CartItem cartItem = cartItemMap.get(bookId);
+        cartItem.countIncrease();
     }
 
 
     public void itemCountDecrease(Integer bookId){
-        RentalItem rentalCartItem = rentalCartItemMap.get(bookId);
-        rentalCartItem.countDecrease();
-        if (rentalCartItem.getCount() == 0) {
+        CartItem cartItem = cartItemMap.get(bookId);
+        cartItem.countDecrease();
+        if (cartItem.getCount() == 0) {
+            //remove item from cart
             removeCartItem(bookId);
         }
     }
 
     //remove item
     public void removeCartItem(Integer bookId){
-        rentalCartItemMap.remove(bookId);
+        cartItemMap.remove(bookId);
     }
 
     //update count of item
     public void updateItemCount(Integer bookId, Integer newCount){
-        RentalItem rentalCartItem = rentalCartItemMap.get(bookId);
-        rentalCartItem.setCount(newCount);
+        CartItem cartItem = cartItemMap.get(bookId);
+        cartItem.setCount(newCount);
     }
 
     public Integer getTotalCount(){
         Integer totalCount = 0;
-        Set<Map.Entry<Integer, RentalItem>> entries = rentalCartItemMap.entrySet();
-        for (Map.Entry<Integer, RentalItem> entry : entries) {
+        Set<Map.Entry<Integer, CartItem>> entries = cartItemMap.entrySet();
+        for (Map.Entry<Integer, CartItem> entry : entries) {
             totalCount += entry.getValue().getCount();
         }
         return totalCount;
@@ -60,8 +88,8 @@ public class RentalCart {
 
     public Double getTotalAmount(){
         Double totalAmount = 0.0;
-        Set<Map.Entry<Integer, RentalItem>> entries = rentalCartItemMap.entrySet();
-        for (Map.Entry<Integer, RentalItem> entry : entries) {
+        Set<Map.Entry<Integer, CartItem>> entries = cartItemMap.entrySet();
+        for (Map.Entry<Integer, CartItem> entry : entries) {
             totalAmount += entry.getValue().getAmount();
         }
         return totalAmount;

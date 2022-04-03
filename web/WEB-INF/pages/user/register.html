@@ -1,0 +1,298 @@
+﻿<!doctype html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Book Grid</title>
+	<base href="/studstop/">
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
+
+	<!-- all css here -->
+	<!-- bootstrap v3.3.6 css -->
+	<link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+	<!-- animate css -->
+	<link rel="stylesheet" href="css/animate.css" th:href="@{/css/animate.css}">
+	<!-- meanmenu css -->
+	<link rel="stylesheet" href="css/meanmenu.min.css" th:href="@{/css/meanmenu.min.css}">
+	<!-- owl.carousel css -->
+	<link rel="stylesheet" href="css/owl.carousel.css" th:href="@{/css/owl.carousel.css}">
+	<!-- font-awesome css -->
+	<link rel="stylesheet" href="css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}">
+	<!-- flexslider.css-->
+	<link rel="stylesheet" href="css/flexslider.css" th:href="@{/css/flexslider.css}">
+	<!-- chosen.min.css-->
+	<link rel="stylesheet" href="css/chosen.min.css" th:href="@{/css/chosen.min.css}">
+	<!-- style css -->
+	<link rel="stylesheet" href="css/style.css" th:href="@{/css/style.css}">
+	<!-- responsive css -->
+	<link rel="stylesheet" href="css/responsive.css" th:href="@{/css/responsive.css}">
+	<!-- modernizr css -->
+	<script src="js/vendor/modernizr-2.8.3.min.js"></script>
+	<script src="js/vue.js"></script>
+</head>
+    <body class="home-2 home-3">
+
+	<div class="home-3-main">
+		<!-- header-area-start -->
+		<header>
+			<!-- header-top-area-start -->
+			<div class="header-top-area">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+							<div class="account-area text-right">
+								<ul>
+									<li><a href="register.html">Login</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- header-top-area-end -->
+			<!-- header-mid-area-start -->
+			<div class="header-mid-area ptb-40">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+							<div class="logo-area logo-xs-mrg-bottom">
+								<a href="index.html"><img src="img/logo/logo.png" alt="logo"/></a>
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6 hidden-sm hidden-xs"></div>
+						<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- header-mid-area-end -->
+			<div class="main-menu-area hidden-sm hidden-xs sticky-header-1" id="header-sticky" th:include="segment/navigation::navigator">
+			</div>
+			<!-- main-menu-area-end -->
+		</header>
+		<!-- header-area-end -->
+		<!-- breadcrumbs-area-start -->
+		<div class="breadcrumbs-area mb-70">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="breadcrumbs-menu">
+							<ul>
+								<li><a href="#">Home</a></li>
+								<li><a href="#" class="active">register</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- breadcrumbs-area-end -->
+		<!-- user-login-area-start -->
+		<div class="user-login-area mb-70">
+			<div class="container">
+				<div class="row" id="app">
+					<div class="col-lg-12">
+						<div class="login-title text-center mb-30">
+							<h2>Sign Up</h2>
+						</div>
+					</div>
+
+					<div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-12 col-xs-12">
+						<span style="color: red" th:text="${errorMessage}"></span>
+						<div class="single-register">
+							<form action="user?method=doRegister" method="post">
+							<div class="row">
+								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+											<label>First Name<span style="color: red">*</span></label>
+											<input type="text" name="firstname" placeholder="First Name" v-model.trim="firstname" @blur="checkFirstname"/>
+								</div>
+
+								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+											<label>Last Name<span style="color: red">*</span></label>
+											<input  type="text" name="lastname" placeholder="Last Name" v-model.trim="lastname" @blur="checkLastname"/>
+								</div>
+
+							</div>
+							<div class="row">
+								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+											<label>Email Address<span style="color: red">*</span></label>
+											<input  type="text" name="email" placeholder="Email Address" v-model.trim="email" @blur="checkEmail"/>
+								</div>
+
+								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+											<label>Phone<span style="color: red">*</span></label>
+											<input type="text" name="phoneNo" placeholder="Phone Number" v-model.trim="phoneNo" @blur="checkPhoneno"/>
+								</div>
+
+							</div>
+							<label>Account password<span style="color: red">*</span></label>
+							<input type="password" name="password" placeholder="Account Password" v-model="password" @blur="checkPassword"/>
+
+							<label>Confirm password<span style="color: red">*</span></label>
+							<input type="password" placeholder="Confirm Password" v-model="passwordConfirm" @blur="checkCfmPassword"/>
+
+							<label>Verification Code<span style="color: red">*</span></label>
+							<div class="row">
+								<div class="col-lg-2 col-md-1 col-sm-6 col-xs-12">
+									<input name="code" placeholder="Code" type="text"/>
+								</div>
+								<div class="col-lg-2 col-md-1 col-sm-6 col-xs-12">
+									<img :src="checkCodePath" style="height: 45px; width: 200px"  alt="" v-on:click="changeCode"/>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-lg-1 col-md-1 col-sm-6 col-xs-12">
+									<input style="height: 18px; margin-top: 7px" id="rm" type="checkbox" name="rm" value="forever">
+								</div>
+								<div class="col-lg-3 col-md-1 col-sm-6 col-xs-12">
+									<label style="height: 20px" class="inline">Remember me</label>
+								</div>
+							</div>
+							<div class="single-register">
+								<!--<a href="registerCheck">Register</a>-->
+								<button type="submit" @click="registerCheck">Register</button>
+							</div>
+							</form>
+						</div>
+				</div>
+					<span style="color: red" v-show="errorMsgFirstname">First name must be at least 1 character</span></br></br>
+					<span style="color: red" v-show="errorMsgLastname">Last name must be at least 1 character</span></br></br>
+					<span style="color: red" v-show="errorMsgEmail">Please enter the correct email format</span></br></br>
+					<span style="color: red" v-show="errorMsgPhoneno">Please enter the correct phone number format</span></br></br>
+					<span style="color: red" v-show="errorMsgPsw">At least 8-16 characters, 1 uppercase letter, lowercase letter and 1 number</span></br></br>
+					<span style="color: red" v-show="errorMsgCfmpsw">The password entered does not match</span></br></br>
+			</div>
+		</div>
+		<!-- user-login-area-end -->
+		<!-- footer-area-start -->
+		<footer th:include="segment/footer::footer"></footer>
+		<!-- footer-area-end -->
+			<script>
+				var vue = new Vue({
+					"el":"#app",
+					"data":{
+						"firstname":"",
+						"lastname":"",
+						"password":"",
+						"passwordConfirm":"",
+						"email":"",
+						"phoneNo":"",
+						"errorMsgFirstname":false,
+						"errorMsgLastname":false,
+						"errorMsgPsw":false,
+						"errorMsgCfmpsw":false,
+						"errorMsgEmail":false,
+						"errorMsgPhoneno":false,
+						"checkCodePath":"kaptcha"
+					},
+					"methods":{
+						changeCode(){
+							this.checkCodePath = "kaptcha?time="+new Date();
+						},
+						checkFirstname(event){
+							var firstnameRegExp = /^[A-Za-z_]{1,100}$/;
+							var regFirstnameTest = firstnameRegExp.test(this.firstname);
+							if(!regFirstnameTest){
+								this.errorMsgFirstname = true;
+								event.preventDefault();
+							}else{
+								this.errorMsgFirstname = false;
+							}
+						},
+						checkLastname(event){
+							var lastnameRegExp = /^[A-Za-z_]{1,100}$/;
+							var regLastnameTest = lastnameRegExp.test(this.lastname);
+							if(!regLastnameTest){
+								this.errorMsgLastname = true;
+								event.preventDefault();
+							}else{
+								this.errorMsgLastname = false;
+							}
+						},
+						checkPassword(event){
+							var passwordRegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[\s\S]{8,16}$/ ;
+							var regPswTest = passwordRegExp.test(this.password);
+							if(!regPswTest){
+								this.errorMsgPsw = true;
+								event.preventDefault();
+							}else{
+								this.errorMsgPsw = false;
+							}
+						},
+						checkCfmPassword(event){
+							if(this.password != this.passwordConfirm){
+								this.errorMsgCfmpsw = true;
+								event.preventDefault();
+							}else{
+								this.errorMsgCfmpsw = false;
+							}
+						},
+						checkEmail(event){
+							var emailRegExp = /^[a-zA-Z0-9_\.-]+@([a-zA-Z0-9-]+[\.]{1})+[a-zA-Z]+$/;
+							var regEmailTest = emailRegExp.test(this.email);
+							if(!regEmailTest){
+								this.errorMsgEmail = true;
+								event.preventDefault();
+							}else{
+								this.errorMsgEmail = false;
+							}
+						},
+						checkPhoneno(event){
+							var phonenoRegExp = /^\d{10}$/;
+							var regPhonenoTest = phonenoRegExp.test(this.phoneNo);
+							if(!regPhonenoTest){
+								this.errorMsgPhoneno = true;
+								event.preventDefault();
+							}else{
+								this.errorMsgPhoneno = false;
+							}
+						},
+
+						registerCheck(event){
+							this.checkFirstname(event);
+							this.checkLastname(event);
+							this.checkPassword(event);
+							this.checkPhoneno(event);
+							this.checkCfmPassword(event);
+							this.checkEmail(event);
+						}
+					}
+				});
+			</script>
+		
+		<!-- all js here -->
+		<!-- jquery latest version -->
+        <script src="js/vendor/jquery-1.12.0.min.js"></script>
+		<!-- bootstrap js -->
+        <script src="js/bootstrap.min.js"></script>
+		<!-- owl.carousel js -->
+        <script src="js/owl.carousel.min.js"></script>
+		<!-- meanmenu js -->
+        <script src="js/jquery.meanmenu.js"></script>
+		<!-- wow js -->
+        <script src="js/wow.min.js"></script>
+		<!-- jquery.parallax-1.1.3.js -->
+        <script src="js/jquery.parallax-1.1.3.js"></script>
+		<!-- jquery.countdown.min.js -->
+        <script src="js/jquery.countdown.min.js"></script>
+		<!-- jquery.flexslider.js -->
+        <script src="js/jquery.flexslider.js"></script>
+		<!-- chosen.jquery.min.js -->
+        <script src="js/chosen.jquery.min.js"></script>
+		<!-- jquery.counterup.min.js -->
+        <script src="js/jquery.counterup.min.js"></script>
+		<!-- waypoints.min.js -->
+        <script src="js/waypoints.min.js"></script>
+		<!-- plugins js -->
+        <script src="js/plugins.js"></script>
+		<!-- main js -->
+        <script src="js/main.js"></script>
+    </body>
+</html>

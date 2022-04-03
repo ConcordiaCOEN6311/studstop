@@ -57,4 +57,9 @@ public class UserServlet extends ModelBaseServlet {
 			processTemplate("user/register",request,response);
 		}
 	}
+
+	public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		request.getSession().invalidate();
+		response.sendRedirect(request.getContextPath() + "/index.html");
+	}
 }

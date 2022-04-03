@@ -44,11 +44,16 @@
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-							<div class="account-area text-right">
+							<div class="account-area text-right" th:if="${session.loginUser == null}">
 								<ul>
-									<li><a href="register.html">My Account</a></li>
-									<li><a href="checkout.html">Checkout</a></li>
-									<li><a href="login.html">Sign in</a></li>
+									<li><a href="user?method=toRegisterPage">Register</a></li>
+									<li><a href="user?method=toLoginPage">Sign in</a></li>
+								</ul>
+							</div>
+							<div class="account-area text-right" th:unless="${session.loginUser == null}">
+								<ul>
+									<li><span>Welcome<b style="font-style: italic; color: #a74600" th:text="' '+ ${session.loginUser.getFirstname()}+' '+ ${session.loginUser.getLastname()}">name</b></span></li>
+									<li><a href="user?method=logout">Logout</a></li>
 								</ul>
 							</div>
 						</div>
@@ -73,12 +78,18 @@
 								<a href="index.html"><img src="img/logo/logo.png" alt="logo" /></a>
 							</div>
 						</div>
-						<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+						<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 pull-right">
 							<div class="my-cart">
 								<ul>
-									<li><a href="cart?method=toCartPage"><i class="fa fa-shopping-cart"></i>My Cart</a>
+									<li><a href="cart?method=toCartPage"><i class="fa fa-shopping-cart"></i>My Shop Cart</a>
 										<span th:if="${session.cart != null}" th:text="${session.cart.totalCount}"></span>
-
+									</li>
+								</ul>
+							</div>
+							<div class="my-cart">
+								<ul>
+									<li><a href="#"><i class="fa fa-book"></i>My Rent Cart</a>
+										<span th:if="${session.rentalCart != null}" th:text="${session.rentalCart.totalCount}" style="background-color: #ce8483"> </span>
 									</li>
 								</ul>
 							</div>
@@ -221,10 +232,11 @@
                                             </div>
                                             <div class="product-link">
                                                 <div class="product-button" th:if="${book.saleStock}>0">
-                                                    <a th:href="@{/cart(method='addCartItem',id=${book.bookId}, view='grid', catId=${session.catId},catName=${session.catName}, currentPage=${bookGridPage.currentPage})}" title="Add to cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                                    <a th:href="@{/cart(method='addCartItem',id=${book.bookId}, view='grid', catId=${session.catId},catName=${session.catName}, currentPage=${bookGridPage.currentPage})}" title="Add to shop cart"><i class="fa fa-shopping-cart"></i>Buy</a>
+													<a th:href="@{/cart(method='addRentCartItem',id=${book.bookId}, view='grid', catId=${session.catId},catName=${session.catName}, currentPage=${bookGridPage.currentPage})}" title="Add to rent cart"><i class="fa fa-book"></i>Rent</a>
                                                 </div>
 												<div class="product-button" th:unless="${book.saleStock}>0">
-													<a title="Out of stock"><i class="fa fa-shopping-bag"></i>Out of stock</a>
+													<a title="Out of stock"><i class="fa fa-shopping-bag"></i>Out of sale</a>
 												</div>
                                                 <div class="add-to-link">
                                                     <ul>
