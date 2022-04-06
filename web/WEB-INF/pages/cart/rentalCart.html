@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Book List</title>
+        <title>Shopping Cart</title>
 		<base href="/studstop/">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,27 +13,32 @@
 
 		<!-- all css here -->
 		<!-- bootstrap v3.3.6 css -->
-        <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+		<link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
 		<!-- animate css -->
-        <link rel="stylesheet" href="css/animate.css" th:href="@{/css/animate.css}">
+		<link rel="stylesheet" href="css/animate.css" th:href="@{/css/animate.css}">
 		<!-- meanmenu css -->
-        <link rel="stylesheet" href="css/meanmenu.min.css" th:href="@{/css/meanmenu.min.css}">
+		<link rel="stylesheet" href="css/meanmenu.min.css" th:href="@{/css/meanmenu.min.css}">
 		<!-- owl.carousel css -->
-        <link rel="stylesheet" href="css/owl.carousel.css" th:href="@{/css/owl.carousel.css}">
+		<link rel="stylesheet" href="css/owl.carousel.css" th:href="@{/css/owl.carousel.css}">
 		<!-- font-awesome css -->
-        <link rel="stylesheet" href="css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}">
+		<link rel="stylesheet" href="css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}">
 		<!-- flexslider.css-->
-        <link rel="stylesheet" href="css/flexslider.css" th:href="@{/css/flexslider.css}">
+		<link rel="stylesheet" href="css/flexslider.css" th:href="@{/css/flexslider.css}">
 		<!-- chosen.min.css-->
-        <link rel="stylesheet" href="css/chosen.min.css" th:href="@{/css/chosen.min.css}">
+		<link rel="stylesheet" href="css/chosen.min.css" th:href="@{/css/chosen.min.css}">
 		<!-- style css -->
 		<link rel="stylesheet" href="css/style.css" th:href="@{/css/style.css}">
 		<!-- responsive css -->
-        <link rel="stylesheet" href="css/responsive.css" th:href="@{/css/responsive.css}">
+		<link rel="stylesheet" href="css/responsive.css" th:href="@{/css/responsive.css}">
+
+		<link rel="stylesheet" href="css/mc-calendar.min.css" th:href="@{/css/mc-calendar.min.css}">
 		<!-- modernizr css -->
-        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+		<script src="js/vendor/modernizr-2.8.3.min.js"></script>
+		<script src="js/mc-calendar.min.js"></script>
+
     </head>
-    <body class="shop">
+    <body class="cart">
+
 
 		<!-- header-area-start -->
         <header>
@@ -42,6 +47,26 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+							<div class="language-area">
+								<ul>
+									<li><img src="img/flag/1.jpg" alt="flag" /><a href="#">English<i class="fa fa-angle-down"></i></a>
+										<div class="header-sub">
+											<ul>
+												<li><a href="#"><img src="img/flag/2.jpg" alt="flag" />france</a></li>
+												<li><a href="#"><img src="img/flag/3.jpg" alt="flag" />croatia</a></li>
+											</ul>
+										</div>
+									</li>
+									<li><a href="#">USD $<i class="fa fa-angle-down"></i></a>
+										<div class="header-sub dolor">
+											<ul>
+												<li><a href="#">EUR €</a></li>
+												<li><a href="#">USD $</a></li>
+											</ul>
+										</div>
+									</li>
+								</ul>
+							</div>
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 							<div class="account-area text-right" th:if="${session.loginUser == null}">
@@ -88,7 +113,7 @@
 							</div>
 							<div class="my-cart">
 								<ul>
-									<li><a href="cart?method=toRentalCartPage"><i class="fa fa-book"></i>My Rent Cart</a>
+									<li><a href="#"><i class="fa fa-book"></i>My Rent Cart</a>
 										<span th:if="${session.rentalCart != null}" th:text="${session.rentalCart.totalCount}" style="background-color: #ce8483"> </span>
 									</li>
 								</ul>
@@ -112,7 +137,7 @@
 						<div class="breadcrumbs-menu">
 							<ul>
 								<li><a href="@{/index}">Home</a></li>
-								<li><a href="#" class="active">shop</a></li>
+								<li><a href="#" class="active">cart</a></li>
 							</ul>
 						</div>
 					</div>
@@ -120,167 +145,106 @@
 			</div>
 		</div>
 		<!-- breadcrumbs-area-end -->
-		<!-- shop-main-area-start -->
-		<div class="shop-main-area mb-70">
+		<!-- entry-header-area-start -->
+		<div class="entry-header-area">
 			<div class="container">
 				<div class="row">
-					<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
-						<div class="shop-left">
-							<div class="left-title mb-20">
-								<h4>Price Range</h4>
-							</div>
-							<div class="left-menu mb-30">
-								<ul>
-									<li><a href="#">$0.00-$9.99<span>(1)</span></a></li>
-									<li><a href="#">$30.00-$39.99<span>(11)</span></a></li>
-									<li><a href="#">$40.00-$49.99<span>(2)</span></a></li>
-									<li><a href="#">$50.00-$59.99<span>(3)</span></a></li>
-									<li><a href="#">$70.00-and above<span>(1)</span></a></li>
-								</ul>
-							</div>
-							<div class="banner-area mb-30">
-								<div class="banner-img-2">
-									<a href="#"><img src="img/banner/31.jpg" alt="banner" /></a>
-								</div>
-							</div>
+					<div class="col-lg-12">
+						<div class="entry-header-title">
+							<h2>Cart</h2>
 						</div>
-					</div>
-					<div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
-						<div class="category-image mb-30">
-							<a href="#"><img src="img/banner/32.jpg" alt="banner" /></a>
-						</div>
-						<div class="section-title-5 mb-30">
-							<h2 th:text="${session.catName}">catname</h2>
-						</div>
-						<div class="toolbar mb-30">
-							<div class="shop-tab">
-								<div class="tab-3">
-									<ul>
-										<li><a th:href="@{/book(method='toShopGridPageByCatId',, catName=${session.catName}, catId=${session.catId})}"><i class="fa fa-th-large"></i>Grid</a></li>
-										<li class="active" ><a th:href="@{/book(method='toShopListPageByCatId',catId=${session.catId}, catName=${session.catName})}"><i class="fa fa-bars"></i>List</a></li>
-									</ul>
-								</div>
-								<!--<div class="list-page" th:if="${#lists.size(bookListPage.infoList)} > 5">
-										<p>Items <span th:text="${index}+1">1</span>-<span th:text="${index}+5"></span> of <span th:text="${bookGridPage.totalCount}"></span></p>
-								</div>
-								<div class="list-page" th:if="${#lists.size(bookListPage.infoList)} < 5">
-									<p>Items <span th:text="${index}+1">1</span>-<span th:text="${bookGridPage.totalCount}"></span> of <span th:text="${bookGridPage.totalCount}"></span></p>
-								</div>-->
-							</div>
-							<div class="field-limiter">
-								<div class="control">
-									<span>Show</span>
-									<!-- chosen-start -->
-									<select data-placeholder="Default Sorting" style="width:50px;" class="chosen-select" tabindex="1">
-										 <option value="Sorting">1</option>
-										 <option value="popularity">2</option>
-										 <option value="rating">3</option>
-										 <option value="date">4</option>
-									</select>
-									<!-- chosen-end -->
-								</div>
-							</div>
-							<div class="toolbar-sorter">
-								<span>Sort By</span>
-								<select id="sorter" class="sorter-options" data-role="sorter">
-									<option selected="selected" value="position"> Position </option>
-									<option value="name"> Product Name </option>
-									<option value="price"> Price </option>
-								</select>
-								<a href="#"><i class="fa fa-arrow-up"></i></a>
-							</div>
-						</div>
-						<!-- tab-area-start -->
-						<div class="tab-content">
-
-							<div class="tab-pane active" id="list">
-								<!-- single-shop-start -->
-								<div class="single-shop mb-30" th:each="book:${bookListPage.infoList}">
-									<div class="row">
-										<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-											<div class="product-wrapper-2">
-												<div class="product-img">
-													<a href="#">
-														<img th:src="${book.imgPath}" alt="book" class="primary" />
-													</a>
-												</div>
-												<div class="product-flag">
-													<ul>
-														<li th:if="${book.newArrivedIndicator} == 'Y'"><span class="sale">new</span></li>
-														<li th:if="${not #strings.isEmpty(book.discount)}"><span class="discount-percentage" th:text="${book.discount}">discount</span></li>
-													</ul>
-												</div>
-											</div>
-										</div>
-										<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-											<div class="product-wrapper-content">
-												<div class="product-details">
-													<div class="product-rating">
-														<ul>
-															<li th:each="rate:${#numbers.sequence(1,book.rate)}"><a href="#"><i class="fa fa-star"></i></a></li>
-														</ul>
-													</div>
-													<h4><a href="#" th:text="${book.bookName}">bookname</a></h4>
-													<div class="product-price">
-														<ul th:if="${not #strings.isEmpty(book.discount)}">
-															<li th:text="'$' + ${book.finalPrice}">finalprice</li>
-															<li class="old-price" th:text="'$'+${book.price}">price</li>
-														</ul>
-														<ul th:unless="${not #strings.isEmpty(book.discount)}">
-															<li th:text="'$'+${book.price}">price</li>
-														</ul>
-													</div>
-													<p th:text="${book.description}">description</p>
-												</div>
-												<div class="product-link">
-													<div class="product-button">
-														<a th:href="@{/cart(method='addCartItem',id=${book.bookId}, view='list', catId=${session.catId},catName=${session.catName}, currentPage=${bookListPage.currentPage})}" title="Add to cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-													</div>
-													<div class="add-to-link">
-                                                        <ul>
-															<li><a th:href="@{/book(method='toBookDetailPage',bookId=${book.bookId})}" title="Details"><i class="fa fa-external-link"></i></a></li>
-                                                        </ul>
-                                                    </div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- tab-area-end -->
-						<!-- pagination-area-start -->
-						<div class="pagination-area mt-50">
-							<div class="list-page-2">
-								<p>Total&nbsp;<span th:text="${bookListPage.totalPage}">totalPage</span>&nbsp;Pages</p>
-							</div>
-							<div class="page-number">
-								<ul>
-									<li>
-										<a th:href="@{/book(method='toShopListPageByCatId', currentPage=1, catId=${session.catId})}">First</a>
-									</li>
-									<li th:if="${bookListPage.currentPage != 1}">
-										<a th:href="@{/book(method='toShopListPageByCatId',catId=${session.catId}, currentPage=${bookListPage.currentPage}-1)}">Pre</a>
-									</li>
-									<li th:each="count:${#numbers.sequence(1,bookListPage.totalPage)}">
-										<a th:href="@{/book(method='toShopListPageByCatId',catId=${session.catId}, currentPage=${count})}" th:class="${count==bookListPage.currentPage}? 'active' : ''" th:text="${count}">FirstPage</a>
-									</li>
-									<li th:if="${bookListPage.currentPage} != ${bookListPage.totalPage}">
-										<a th:href="@{/book(method='toShopListPageByCatId',catId=${session.catId}, currentPage=${bookListPage.currentPage}+1)}" class="angle"><i class="fa fa-angle-right"></i></a></li>
-									</li>
-									<li>
-										<a th:href="@{/book(method='toShopListPageByCatId',catId=${session.catId}, currentPage=${bookListPage.totalPage})}">End</a></li>
-									</li>
-								</ul>
-
-							</div>
-						</div>
-						<!-- pagination-area-end -->
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- shop-main-area-end -->
+		<!-- entry-header-area-end -->
+		<!-- cart-main-area-start -->
+		<div class="cart-main-area mb-70">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<form action="#">
+							<div class="table-content table-responsive">
+								<table>
+									<thead>
+										<tr>
+											<th class="product-thumbnail">Cover Image</th>
+											<th class="product-name">Book</th>
+											<th class="product-price">Rental Fee</th>
+											<th class="product-quantity">Rental Days</th>
+											<th class="product-subtotal">Total</th>
+											<th class="product-remove">Remove</th>
+										</tr>
+									</thead>
+									<tbody>
+									<tr th:if="${session.rentalCart} == null">
+										<td th:colspan="6">
+											<a th:href="index.html">The cart is empty</a>
+										</td>
+									</tr>
+									</tbody>
+									<tbody>
+										<tr th:if="${session.rentalCart != null}" th:each="rentalCartItemEntry: ${session.rentalCart.rentalCartItemMap}">
+											<td class="product-thumbnail"><a href="#"><img th:src="${rentalCartItemEntry.value.imgPath}" alt="man" /></a></td>
+											<td class="product-name"><a th:text="${rentalCartItemEntry.value.bookName}">bookname</a></td>
+											<td class="product-price"><span class="amount" th:text="'$' + ${rentalCartItemEntry.value.rentPrice}"></span></td>
+											<td class="product-quantity"><input type="number" th:value="${rentalCartItemEntry.value.rentalDays}"></td>
+											<td class="product-subtotal" th:text="'$'+${rentalCartItemEntry.value.amount}">amount</td>
+											<td class="product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+                    <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+                        <div class="buttons-cart mb-30">
+                            <ul>
+                                <li><a href="#">Update Cart</a></li>
+                                <li><a href="#">Continue Shopping</a></li>
+                            </ul>
+                        </div>
+                        <div class="coupon">
+                            <h3>Coupon</h3>
+                            <p>Enter your coupon code if you have one.</p>
+                            <form action="#">
+                                <input type="text" placeholder="Coupon code">
+                                <a href="#">Apply Coupon</a>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" th:if="${session.rentalCart} != null">
+                        <div class="cart_totals">
+                            <h2>Cart Totals</h2>
+                            <table>
+                                <tbody>
+                                    <tr class="cart-subtotal">
+                                        <th>Subtotal</th>
+                                        <td>
+                                            <span class="amount" th:text="'$'+${session.rentalCart.totalAmount}">total amount</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="order-total">
+                                        <th>Total</th>
+                                        <td>
+                                            <strong>
+                                                <span class="amount" th:text="'$'+${session.rentalCart.totalAmount}">total amount</span>
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="wc-proceed-to-checkout">
+                                <a href="#">Proceed to Checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+			</div>
+		</div>
+		<!-- cart-main-area-end -->
 		<!-- footer-area-start -->
 		<footer>
 			<!-- footer-top-start -->
@@ -382,7 +346,7 @@
 					<div class="row bt-2">
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 							<div class="copy-right-area">
-								<p>Copyright ©<a href="http://www.bootstrapmb.com/">Koparion</a>. All Right Reserved.</p>
+								<p>Copyright ©<a href="">StudStop</a>. All Right Reserved.</p>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -396,8 +360,6 @@
 			<!-- footer-bottom-end -->
 		</footer>
 		<!-- footer-area-end -->
-
-		
 		
 		
 		<!-- all js here -->
@@ -427,5 +389,6 @@
         <script src="js/plugins.js"></script>
 		<!-- main js -->
         <script src="js/main.js"></script>
+
     </body>
 </html>

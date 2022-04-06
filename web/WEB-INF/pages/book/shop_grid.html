@@ -88,7 +88,7 @@
 							</div>
 							<div class="my-cart">
 								<ul>
-									<li><a href="#"><i class="fa fa-book"></i>My Rent Cart</a>
+									<li><a href="cart?method=toRentalCartPage"><i class="fa fa-book"></i>My Rent Cart</a>
 										<span th:if="${session.rentalCart != null}" th:text="${session.rentalCart.totalCount}" style="background-color: #ce8483"> </span>
 									</li>
 								</ul>

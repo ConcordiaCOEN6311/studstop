@@ -55,10 +55,10 @@ public class CartServlet extends ModelBaseServlet {
 				RentalCart rentalCart = (RentalCart) session.getAttribute("rentalCart");
 				if(rentalCart == null){
 					rentalCart = new RentalCart();
-					rentalCart.addBookToCart(book);
+					rentalCart.addBookToRentalCart(book);
 					session.setAttribute("rentalCart",rentalCart);
 				}else {
-					rentalCart.addBookToCart(book);
+					rentalCart.addBookToRentalCart(book);
 				}
 
 				if("grid".equals(view)){
