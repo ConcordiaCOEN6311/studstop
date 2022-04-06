@@ -72,10 +72,9 @@ public class RentalCart {
     }
 
 
-    //update count of item
-    public void updateItemCount(Integer bookId, Integer newCount){
+    public void updateItemRentalDays(Integer bookId, Integer newCount){
         RentalCartItem rentalCartItem = rentalCartItemMap.get(bookId);
-        rentalCartItem.setCount(newCount);
+        rentalCartItem.setRentalDays(newCount);
     }
 
     public Integer getTotalCount(){

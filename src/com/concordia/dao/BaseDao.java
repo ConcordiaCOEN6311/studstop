@@ -6,6 +6,7 @@ import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -25,10 +26,13 @@ public class BaseDao<T> {
 	 * @return int
 	 */
 	public int update(String sql, Object... params){
+		Connection connection = JDBCUtil.getConnection();
 		try {
-			return queryRunner.update(JDBCUtil.getConnection(), sql, params);
+			return queryRunner.update(connection, sql, params);
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
+		}finally {
+			JDBCUtil.releaseConnection(connection);
 		}
 	}
 
@@ -40,10 +44,13 @@ public class BaseDao<T> {
 	 * @return T
 	 */
 	public T getBean(Class<T> clazz, String sql, Object... params){
+		Connection connection = JDBCUtil.getConnection();
 		try {
-			return queryRunner.query(JDBCUtil.getConnection(), sql, new BeanHandler<>(clazz), params);
+			return queryRunner.query(connection, sql, new BeanHandler<>(clazz), params);
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
+		}finally {
+			JDBCUtil.releaseConnection(connection);
 		}
 	}
 
@@ -55,19 +62,25 @@ public class BaseDao<T> {
 	 * @return java.util.List<T>
 	 */
 	public List<T> getBeanList(Class<T> clazz, String sql, Object... params){
+		Connection connection = JDBCUtil.getConnection();
 		try {
-			return queryRunner.query(JDBCUtil.getConnection(), sql, new BeanListHandler<>(clazz), params);
+			return queryRunner.query(connection, sql, new BeanListHandler<>(clazz), params);
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
+		}finally {
+			JDBCUtil.releaseConnection(connection);
 		}
 	}
 
 	public int getTotalCount(String sql,Object... params){
+		Connection connection = JDBCUtil.getConnection();
 		try {
-			Long count = (Long) queryRunner.query(JDBCUtil.getConnection(),sql,new ScalarHandler(),params);
+			Long count = (Long) queryRunner.query(connection,sql,new ScalarHandler(),params);
 			return count.intValue();
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
+		}finally {
+			JDBCUtil.releaseConnection(connection);
 		}
 	}
 }

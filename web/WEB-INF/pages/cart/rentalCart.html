@@ -31,11 +31,10 @@
 		<!-- responsive css -->
 		<link rel="stylesheet" href="css/responsive.css" th:href="@{/css/responsive.css}">
 
-		<link rel="stylesheet" href="css/mc-calendar.min.css" th:href="@{/css/mc-calendar.min.css}">
 		<!-- modernizr css -->
 		<script src="js/vendor/modernizr-2.8.3.min.js"></script>
 		<script src="js/mc-calendar.min.js"></script>
-
+		<script src="js/vue.js"></script>
     </head>
     <body class="cart">
 
@@ -152,6 +151,7 @@
 					<div class="col-lg-12">
 						<div class="entry-header-title">
 							<h2>Cart</h2>
+							<span style="color: red" th:text="${errorMessage}"></span>
 						</div>
 					</div>
 				</div>
@@ -160,7 +160,7 @@
 		<!-- entry-header-area-end -->
 		<!-- cart-main-area-start -->
 		<div class="cart-main-area mb-70">
-			<div class="container">
+			<div class="container" id="cleanRentalCart">
 				<div class="row">
 					<div class="col-lg-12">
 						<form action="#">
@@ -188,9 +188,12 @@
 											<td class="product-thumbnail"><a href="#"><img th:src="${rentalCartItemEntry.value.imgPath}" alt="man" /></a></td>
 											<td class="product-name"><a th:text="${rentalCartItemEntry.value.bookName}">bookname</a></td>
 											<td class="product-price"><span class="amount" th:text="'$' + ${rentalCartItemEntry.value.rentPrice}"></span></td>
-											<td class="product-quantity"><input type="number" th:value="${rentalCartItemEntry.value.rentalDays}"></td>
+											<td class="product-quantity">
+												<input @change="updateRentalCartItemCount" type="number" th:value="${rentalCartItemEntry.value.rentalDays}">
+												<input type="hidden" th:value="${rentalCartItemEntry.value.bookId}"/>
+											</td>
 											<td class="product-subtotal" th:text="'$'+${rentalCartItemEntry.value.amount}">amount</td>
-											<td class="product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
+											<td class="product-remove"><a th:href="@{/cart(method='removeRentalCartItem',id=${rentalCartItemEntry.value.getBookId()})}" @click="deleteRentalCartItem"><i class="fa fa-times"></i></a></td>
 										</tr>
 									</tbody>
 								</table>
@@ -200,10 +203,9 @@
 				</div>
 				<div class="row">
                     <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
-                        <div class="buttons-cart mb-30">
+                        <div class="buttons-cart mb-30" >
                             <ul>
-                                <li><a href="#">Update Cart</a></li>
-                                <li><a href="#">Continue Shopping</a></li>
+								<li><a href="cart?method=cleanRentalCart" @click="cleanRentalCart">Clean Rental Cart</a></li>
                             </ul>
                         </div>
                         <div class="coupon">
@@ -389,6 +391,32 @@
         <script src="js/plugins.js"></script>
 		<!-- main js -->
         <script src="js/main.js"></script>
-
+		<script>
+			var vue = new Vue({
+				el:"#cleanRentalCart",
+				methods:{
+					cleanRentalCart(){
+						if(!confirm("Are you sure to clean rental cart?")){
+							event.preventDefault();
+						}
+					},
+					deleteRentalCartItem(){
+						if(!confirm("Are you sure to remove this item?")){
+							event.preventDefault();
+						}
+					},
+					updateRentalCartItemCount(){
+						var bookId = event.target.nextElementSibling.value;
+						var newCount = event.target.value;
+						var reg = /^[1-9][0-9]*$/
+						if(reg.test(newCount)){
+							location.href = "/studstop/cart?method=updateRentalCart&id="+ bookId +"&newCount="+ newCount;
+						}else {
+							alert("Please input validate number!");
+						}
+					}
+				}
+			});
+		</script>
     </body>
 </html>

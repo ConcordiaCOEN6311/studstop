@@ -80,4 +80,93 @@ public class CartServlet extends ModelBaseServlet {
 	public void toRentalCartPage(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		processTemplate("cart/rentalCart",request,response);
 	}
+
+	public void cleanShoppingCart(HttpServletRequest request,HttpServletResponse response) throws IOException {
+		request.getSession().removeAttribute("cart");
+		processTemplate("cart/cart",request,response);
+	}
+
+	public void cleanRentalCart(HttpServletRequest request,HttpServletResponse response) throws IOException {
+		request.getSession().removeAttribute("rentalCart");
+		processTemplate("cart/rentalCart",request,response);
+	}
+
+	public void removeShoppingCartItem(HttpServletRequest request,HttpServletResponse response) throws IOException {
+		Integer id = Integer.valueOf(request.getParameter("id"));
+		Cart cart = (Cart) request.getSession().getAttribute("cart");
+		cart.removeCartItem(id);
+		processTemplate("cart/cart",request,response);
+	}
+
+	public void removeRentalCartItem(HttpServletRequest request,HttpServletResponse response) throws IOException {
+		Integer id = Integer.valueOf(request.getParameter("id"));
+		Cart cart = (Cart) request.getSession().getAttribute("rentalCart");
+		cart.removeCartItem(id);
+		processTemplate("cart/rentalCart",request,response);
+	}
+
+	public void updateShoppingCart(HttpServletRequest request,HttpServletResponse response) throws Exception {
+		Integer id = Integer.valueOf(request.getParameter("id"));
+		Integer newCount = Integer.valueOf(request.getParameter("newCount"));
+
+		Cart cart = (Cart) request.getSession().getAttribute("cart");
+		Book book = bookService.findBookById(id);
+		if(book.getSaleStock()>newCount){
+			cart.updateItemCount(id,newCount);
+		}else {
+			request.setAttribute("errorMessage", "Update failed, we do not have enough stock");
+		}
+		processTemplate("cart/cart",request,response);
+	}
+
+	public void updateRentalCart(HttpServletRequest request,HttpServletResponse response) throws Exception {
+		Integer id = Integer.valueOf(request.getParameter("id"));
+		Integer newCount = Integer.valueOf(request.getParameter("newCount"));
+
+		RentalCart rentalCart = (RentalCart) request.getSession().getAttribute("rentalCart");
+
+		Book book = bookService.findBookById(id);
+		if(book.getRentStock()>newCount){
+			rentalCart.updateItemRentalDays(id,newCount);
+		}else {
+			request.setAttribute("errorMessage", "Update failed, we do not have enough stock");
+		}
+
+		processTemplate("cart/rentalCart",request,response);
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
