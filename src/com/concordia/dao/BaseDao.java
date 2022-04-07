@@ -92,4 +92,45 @@ public class BaseDao<T> {
 			JDBCUtil.releaseConnection(connection);
 		}
 	}
+
+	public int[] batchUpdate(String sql, Object[][] paramArr){
+		Connection connection = JDBCUtil.getConnection();
+		try {
+			return queryRunner.batch(connection,sql,paramArr);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException();
+		}finally {
+			JDBCUtil.releaseConnection(connection);
+		}
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

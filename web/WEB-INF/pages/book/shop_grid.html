@@ -181,13 +181,7 @@
 								</div>
 							</div>
 							<div class="toolbar-sorter">
-								<span>Sort By</span>
-								<select id="sorter" class="sorter-options" data-role="sorter">
-									<option selected="selected" value="position"> Position </option>
-									<option value="name"> Product Name </option>
-									<option value="price"> Price </option>
-								</select>
-								<a href="#"><i class="fa fa-arrow-up"></i></a>
+								<span style="color: red" th:text="${session.rentalBookError}"></span>
 							</div>
 						</div>
 						<!-- tab-area-start -->

@@ -177,6 +177,13 @@
 										</tr>
 									</thead>
 									<tbody>
+									<tr th:if="${orderSequence} != null">
+										<td th:colspan="6">
+											<span style="font-weight: bold;font-size: large">Your order is placed, the track No. is: </span><a style="font-weight: bold;font-size: large" th:text="${orderSequence}"></a>
+										</td>
+									</tr>
+									</tbody>
+									<tbody>
 									<tr th:if="${session.cart} == null">
 										<td th:colspan="6">
 											<a th:href="index.html">The cart is empty</a>
@@ -260,7 +267,7 @@
                                 </tbody>
                             </table>
                             <div class="wc-proceed-to-checkout">
-                                <a href="#">Proceed to Checkout</a>
+                                <a href="protected/orderClient?method=checkoutShoppingCart">Proceed to Checkout</a>
                             </div>
                         </div>
                     </div>

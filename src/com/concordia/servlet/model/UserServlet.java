@@ -1,6 +1,7 @@
 package com.concordia.servlet.model;
 
 import com.concordia.bean.Student;
+import com.concordia.constant.MyConstants;
 import com.concordia.service.StudentService;
 import com.concordia.service.impl.StudentServiceImpl;
 import com.concordia.servlet.base.ModelBaseServlet;
@@ -27,7 +28,7 @@ public class UserServlet extends ModelBaseServlet {
 		try {
 			BeanUtils.populate(student, parameterMap);
 			Student loginUser = studentService.doLogin(student);
-			request.getSession().setAttribute("loginUser",loginUser);
+			request.getSession().setAttribute(MyConstants.USER_SESSION_KEY,loginUser);
 			processTemplate("index",request,response);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -44,7 +45,7 @@ public class UserServlet extends ModelBaseServlet {
 		try {
 			BeanUtils.populate(student,parameterMap);
 			studentService.doRegister(student);
-			request.getSession().setAttribute("loginUser",student);
+			request.getSession().setAttribute(MyConstants.USER_SESSION_KEY,student);
 			processTemplate("index",request,response);
 			//response.getWriter().write("Register success");
 		} catch (Exception e) {

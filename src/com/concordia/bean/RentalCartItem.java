@@ -70,8 +70,10 @@ public class RentalCartItem {
 	}
 
 	public Double getAmount() {
-		BigDecimal bigDecimalPrice = new BigDecimal(rentPrice + "");
-		BigDecimal bigDecimalCount = new BigDecimal(rentalDays + "");
+		Integer rentalDays = this.rentalDays;
+		Double rentPrice = this.rentPrice;
+		BigDecimal bigDecimalPrice = new BigDecimal(rentalDays + "");
+		BigDecimal bigDecimalCount = new BigDecimal(rentPrice + "");
 
 		BigDecimal fp= BigDecimal.valueOf(bigDecimalCount.multiply(bigDecimalPrice).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
 		this.amount = fp.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();

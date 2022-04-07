@@ -1,5 +1,6 @@
 package com.concordia.test;
 
+import com.concordia.constant.UUID22;
 import com.concordia.dao.CartDao;
 import com.concordia.dao.impl.CartDaoImpl;
 import org.junit.Test;
@@ -21,5 +22,11 @@ public class TestDao {
 		for (Object o : appointmentDateList) {
 			System.out.println(o);
 		}
+	}
+
+	@Test
+	public void testUUID(){
+		String s = UUID22.generateShortUuid();
+		System.out.println(s);
 	}
 }

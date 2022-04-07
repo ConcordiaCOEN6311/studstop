@@ -62,4 +62,33 @@ public class BookDaoImpl extends BaseDao implements BookDao {
 		return getTotalCount(sql,params);
 	}
 
+	@Override
+	public void updateBookStocks(Object[][] bookStocks) throws SQLException{
+		String sql = "update book set sales=sales+?,sale_stock=sale_stock-? where book_id=?";
+		batchUpdate(sql,bookStocks);
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

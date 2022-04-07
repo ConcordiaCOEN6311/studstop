@@ -75,7 +75,9 @@ public class Cart {
 		for (Map.Entry<Integer, CartItem> entry : entries) {
 			totalAmount += entry.getValue().getAmount();
 		}
-		return totalAmount;
+		String  str = String.format("%.2f",totalAmount);
+		Double finalTotalAmount = Double.parseDouble(str);
+		return finalTotalAmount;
 	}
 }
 

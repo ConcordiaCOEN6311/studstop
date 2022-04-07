@@ -36,14 +36,15 @@ public class RentalCart {
         this.appointmentDate = appointmentDate;
     }
 
-    public void addBookToRentalCart(Book book) throws ParseException {
+    public Boolean addBookToRentalCart(Book book) throws ParseException {
         if (rentalCartItemMap.containsKey(book.getBookId())) {
             //not first time to add book to cart
-            itemCountIncrease(book.getBookId());
+            return true;
         }else {
             //fist time to add book to cart, count = 1
             RentalCartItem rentalCartItem = new RentalCartItem(book.getBookId(),book.getBookName(),book.getImgPath(),book.getRentPrice(),3, 1, book.getRentPrice()*3);
             rentalCartItemMap.put(rentalCartItem.getBookId(),rentalCartItem);
+            return false;
         }
     }
 
@@ -92,6 +93,8 @@ public class RentalCart {
         for (Map.Entry<Integer, RentalCartItem> entry : entries) {
             totalAmount += entry.getValue().getAmount();
         }
-        return totalAmount;
+        String  str = String.format("%.2f",totalAmount);
+        Double finalTotalAmount = Double.parseDouble(str);
+        return finalTotalAmount;
     }
 }

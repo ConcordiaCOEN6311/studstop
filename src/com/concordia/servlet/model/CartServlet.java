@@ -3,6 +3,7 @@ package com.concordia.servlet.model;
 import com.concordia.bean.Book;
 import com.concordia.bean.Cart;
 import com.concordia.bean.RentalCart;
+import com.concordia.constant.MyConstants;
 import com.concordia.service.BookService;
 import com.concordia.service.CartService;
 import com.concordia.service.impl.BookServiceImpl;
@@ -27,11 +28,11 @@ public class CartServlet extends ModelBaseServlet {
 		try {
 			Book book = bookService.findBookById(id);
 			HttpSession session = request.getSession();
-			Cart cart = (Cart) session.getAttribute("cart");
+			Cart cart = (Cart) session.getAttribute(MyConstants.CART_SESSION_KEY);
 			if(cart == null){
 				cart = new Cart();
 				cart.addBookToCart(book);
-				session.setAttribute("cart",cart);
+				session.setAttribute(MyConstants.CART_SESSION_KEY,cart);
 			}else {
 				cart.addBookToCart(book);
 			}
@@ -57,13 +58,18 @@ public class CartServlet extends ModelBaseServlet {
 			try {
 				Book book = bookService.findBookById(id);
 				HttpSession session = request.getSession();
-				RentalCart rentalCart = (RentalCart) session.getAttribute("rentalCart");
+				RentalCart rentalCart = (RentalCart) session.getAttribute(MyConstants.RENTAL_CART_SESSION_KEY);
 				if(rentalCart == null){
 					rentalCart = new RentalCart();
 					rentalCart.addBookToRentalCart(book);
-					session.setAttribute("rentalCart",rentalCart);
+					session.setAttribute(MyConstants.RENTAL_CART_SESSION_KEY,rentalCart);
 				}else {
-					rentalCart.addBookToRentalCart(book);
+					Boolean notFirstTimeRent = rentalCart.addBookToRentalCart(book);
+					if (notFirstTimeRent) {
+						request.getSession().setAttribute("rentalBookError","Cannot add the same book to rental cart!");
+					}else {
+						request.getSession().setAttribute("rentalBookError", "");
+					}
 				}
 
 				if("grid".equals(view)){
@@ -84,7 +90,7 @@ public class CartServlet extends ModelBaseServlet {
 
 	public void toRentalCartPage(HttpServletRequest request,HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
-		RentalCart rentalCart = (RentalCart) session.getAttribute("rentalCart");
+		RentalCart rentalCart = (RentalCart) session.getAttribute(MyConstants.RENTAL_CART_SESSION_KEY);
 		if(rentalCart!=null){
 			List<String> appointmentDateList = cartService.showAppointmentDate();
 			session.setAttribute("aptTimeList", appointmentDateList);
@@ -93,25 +99,25 @@ public class CartServlet extends ModelBaseServlet {
 	}
 
 	public void cleanShoppingCart(HttpServletRequest request,HttpServletResponse response) throws IOException {
-		request.getSession().removeAttribute("cart");
+		request.getSession().removeAttribute(MyConstants.CART_SESSION_KEY);
 		processTemplate("cart/cart",request,response);
 	}
 
 	public void cleanRentalCart(HttpServletRequest request,HttpServletResponse response) throws IOException {
-		request.getSession().removeAttribute("rentalCart");
+		request.getSession().removeAttribute(MyConstants.RENTAL_CART_SESSION_KEY);
 		processTemplate("cart/rentalCart",request,response);
 	}
 
 	public void removeShoppingCartItem(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		Integer id = Integer.valueOf(request.getParameter("id"));
-		Cart cart = (Cart) request.getSession().getAttribute("cart");
+		Cart cart = (Cart) request.getSession().getAttribute(MyConstants.CART_SESSION_KEY);
 		cart.removeCartItem(id);
 		processTemplate("cart/cart",request,response);
 	}
 
 	public void removeRentalCartItem(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		Integer id = Integer.valueOf(request.getParameter("id"));
-		RentalCart rentalCart = (RentalCart) request.getSession().getAttribute("rentalCart");
+		RentalCart rentalCart = (RentalCart) request.getSession().getAttribute(MyConstants.RENTAL_CART_SESSION_KEY);
 		rentalCart.removeRentalCartItem(id);
 		processTemplate("cart/rentalCart",request,response);
 	}
@@ -120,7 +126,7 @@ public class CartServlet extends ModelBaseServlet {
 		Integer id = Integer.valueOf(request.getParameter("id"));
 		Integer newCount = Integer.valueOf(request.getParameter("newCount"));
 
-		Cart cart = (Cart) request.getSession().getAttribute("cart");
+		Cart cart = (Cart) request.getSession().getAttribute(MyConstants.CART_SESSION_KEY);
 		Book book = bookService.findBookById(id);
 		if(book.getSaleStock()>newCount){
 			cart.updateItemCount(id,newCount);
@@ -134,7 +140,7 @@ public class CartServlet extends ModelBaseServlet {
 		Integer id = Integer.valueOf(request.getParameter("id"));
 		Integer newCount = Integer.valueOf(request.getParameter("newCount"));
 
-		RentalCart rentalCart = (RentalCart) request.getSession().getAttribute("rentalCart");
+		RentalCart rentalCart = (RentalCart) request.getSession().getAttribute(MyConstants.RENTAL_CART_SESSION_KEY);
 
 		Book book = bookService.findBookById(id);
 		if(book.getRentStock()>newCount){
@@ -148,14 +154,14 @@ public class CartServlet extends ModelBaseServlet {
 
 	public void updateAptTime(HttpServletRequest request,HttpServletResponse response) throws Exception {
 		String aptTime = request.getParameter("aptTime");
-		RentalCart rentalCart = (RentalCart) request.getSession().getAttribute("rentalCart");
+		RentalCart rentalCart = (RentalCart) request.getSession().getAttribute(MyConstants.RENTAL_CART_SESSION_KEY);
 		rentalCart.setAppointmentTime(aptTime);
 		processTemplate("cart/rentalCart",request,response);
 	}
 
 	public void updateAptDate(HttpServletRequest request,HttpServletResponse response) throws Exception {
 		Date aptDate = Date.valueOf(request.getParameter("aptDate"));
-		RentalCart rentalCart = (RentalCart) request.getSession().getAttribute("rentalCart");
+		RentalCart rentalCart = (RentalCart) request.getSession().getAttribute(MyConstants.RENTAL_CART_SESSION_KEY);
 		rentalCart.setAppointmentDate(aptDate);
 		processTemplate("cart/rentalCart",request,response);
 	}

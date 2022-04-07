@@ -71,9 +71,7 @@ public class CartItem {
 		BigDecimal bigDecimalPrice = new BigDecimal(price + "");
 		BigDecimal bigDecimalCount = new BigDecimal(count + "");
 
-		BigDecimal fp= BigDecimal.valueOf(bigDecimalCount.multiply(bigDecimalPrice).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
-		this.amount = fp.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
-		return this.amount;
+		return Double.valueOf(String.valueOf(bigDecimalCount.multiply(bigDecimalPrice).setScale(2, BigDecimal.ROUND_HALF_UP)));
 	}
 
 	public void setAmount(Double amount) {

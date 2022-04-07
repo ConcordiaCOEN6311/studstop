@@ -11,6 +11,14 @@
         <param-name>view-suffix</param-name>
         <param-value>.html</param-value>
     </context-param>
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>com.concordia.filter.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/protected/*</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>PortalServlet</servlet-name>
         <servlet-class>com.concordia.servlet.model.PortalServlet</servlet-class>
@@ -31,6 +39,11 @@
         <servlet-name>KaptchaServlet</servlet-name>
         <servlet-class>com.google.code.kaptcha.servlet.KaptchaServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>OrderClientServlet</servlet-name>
+        <servlet-class>com.concordia.servlet.model.OrderClientServlet</servlet-class>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>PortalServlet</servlet-name>
         <url-pattern>/index.html</url-pattern>
@@ -50,5 +63,9 @@
     <servlet-mapping>
         <servlet-name>KaptchaServlet</servlet-name>
         <url-pattern>/kaptcha</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderClientServlet</servlet-name>
+        <url-pattern>/protected/orderClient</url-pattern>
     </servlet-mapping>
 </web-app>
