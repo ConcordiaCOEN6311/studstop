@@ -89,7 +89,12 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="login-title text-center mb-30">
+
 							<h2>Login</h2>
+                            <span th:text="${errorMessage}" style="color: red"></span>
+                            <span style="color: red" v-show="showErrMsgEmail">{{errormsg}}</span></br>
+                            <span style="color: red" v-show="showErrMsgPassword">{{errormsg}}</span></br>
+
 						</div>
 					</div>
 					<div class="col-lg-offset-3 col-lg-6 col-md-offset-3 col-md-6 col-sm-12 col-xs-12">
@@ -101,7 +106,7 @@
                                 </div>
                                 <div class="single-login">
                                     <label>Passwords <span style="color: red">*</span></label>
-                                    <input type="text" name="password" placeholder="Password" v-model.trim="password"/>
+                                    <input type="password" name="password" placeholder="Password" v-model.trim="password"/>
                                 </div>
                                 <div class="single-login single-login-2">
                                     <input type="submit" value="Sign In" @click="loginCheck($event)"/>
@@ -112,9 +117,6 @@
                         </form>
 					</div>
 				</div>
-                <span th:text="${errorMessage}" style="color: red"></span>
-                <span style="color: red" v-show="showErrMsgEmail">{{errormsg}}</span></br>
-                <span style="color: red" v-show="showErrMsgPassword">{{errormsg}}</span></br>
 			</div>
 
 		</div>

@@ -2,9 +2,7 @@ package com.concordia.dao;
 
 import com.concordia.utils.JDBCUtil;
 import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.BeanHandler;
-import org.apache.commons.dbutils.handlers.BeanListHandler;
-import org.apache.commons.dbutils.handlers.ScalarHandler;
+import org.apache.commons.dbutils.handlers.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -65,6 +63,17 @@ public class BaseDao<T> {
 		Connection connection = JDBCUtil.getConnection();
 		try {
 			return queryRunner.query(connection, sql, new BeanListHandler<>(clazz), params);
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		}finally {
+			JDBCUtil.releaseConnection(connection);
+		}
+	}
+
+	public List<Object> getStringList(String sql){
+		Connection connection = JDBCUtil.getConnection();
+		try {
+			return queryRunner.query(connection, sql, new ColumnListHandler());
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
 		}finally {

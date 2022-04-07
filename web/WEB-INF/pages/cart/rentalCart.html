@@ -31,9 +31,12 @@
 		<!-- responsive css -->
 		<link rel="stylesheet" href="css/responsive.css" th:href="@{/css/responsive.css}">
 
+		<link rel="stylesheet" href="css/jsCalendar.css" th:href="@{/css/jsCalendar.css}">
+		<link rel="stylesheet" href="css/jsCalendar.micro.min.css" th:href="@{/css/jsCalendar.micro.min.css}">
+
 		<!-- modernizr css -->
 		<script src="js/vendor/modernizr-2.8.3.min.js"></script>
-		<script src="js/mc-calendar.min.js"></script>
+		<script src="js/jsCalendar.js"></script>
 		<script src="js/vue.js"></script>
     </head>
     <body class="cart">
@@ -197,9 +200,37 @@
 										</tr>
 									</tbody>
 								</table>
+								<div class="single-register">
+									<div class="row">
+										<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 col-md-offset-3" th:if="${session.rentalCart.appointmentDate} == null">
+											<label>Appointment Date<span style="color: red">*</span></label>
+											<input readonly="readonly" id="aptDate" onfocus="showCalendar()"  name="appointmentDate" placeholder="Appointment Date" type="text"/>
+										</div>
+										<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 col-md-offset-3" th:if="${session.rentalCart.appointmentDate} != null">
+											<label>Appointment Date<span style="color: red">*</span></label>
+											<input th:value="${session.rentalCart.appointmentDate}" readonly="readonly" id="aptDate" onfocus="showCalendar()"  name="appointmentDate" placeholder="Appointment Date" type="text"/>
+										</div>
+										<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12" th:if="${session.rentalCart.appointmentTime} == null">
+											<label>Appointment Time<span style="color: red">*</span></label>
+											<select @change="updateAptTime" onfocus="hideCalendar()" name="appointmentTime">
+												<option selected>Please select a timeslot</option>
+												<option th:each="aptTime:${session.aptTimeList}" th:value="${aptTime}" th:text="${aptTime}">aptTime</option>
+											</select>
+										</div>
+										<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12" th:if="${session.rentalCart.appointmentTime}!=null">
+											<label>Appointment Time<span style="color: red">*</span></label>
+											<select @change="updateAptTime" onfocus="hideCalendar()" name="appointmentTime">
+												<option th:each="aptTime:${session.aptTimeList}" th:selected="${session.rentalCart.appointmentTime} eq ${aptTime}" th:value="${aptTime}" th:text="${aptTime}">aptTime</option>
+											</select>
+										</div>
+									</div>
+								</div>
 							</div>
 						</form>
 					</div>
+				</div>
+				<div class="single-register">
+				<div id="myCalendar" style="display: none"  data-month-format="month YYYY" class="material-theme micro-theme col-lg-3 col-md-6 col-sm-6 col-xs-12 col-md-offset-3"></div>
 				</div>
 				<div class="row">
                     <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
@@ -208,26 +239,11 @@
 								<li><a href="cart?method=cleanRentalCart" @click="cleanRentalCart">Clean Rental Cart</a></li>
                             </ul>
                         </div>
-                        <div class="coupon">
-                            <h3>Coupon</h3>
-                            <p>Enter your coupon code if you have one.</p>
-                            <form action="#">
-                                <input type="text" placeholder="Coupon code">
-                                <a href="#">Apply Coupon</a>
-                            </form>
-                        </div>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" th:if="${session.rentalCart} != null">
                         <div class="cart_totals">
-                            <h2>Cart Totals</h2>
                             <table>
                                 <tbody>
-                                    <tr class="cart-subtotal">
-                                        <th>Subtotal</th>
-                                        <td>
-                                            <span class="amount" th:text="'$'+${session.rentalCart.totalAmount}">total amount</span>
-                                        </td>
-                                    </tr>
                                     <tr class="order-total">
                                         <th>Total</th>
                                         <td>
@@ -414,9 +430,38 @@
 						}else {
 							alert("Please input validate number!");
 						}
+					},
+					updateAptDate(){
+						var aptDate = event.target.value;
+						location.href = "/studstop/cart?method=updateAptDate&aptDate=" + aptDate;
+					},
+					updateAptTime(){
+						var aptTime = event.target.value;
+						location.href = "/studstop/cart?method=updateAptTime&aptTime=" + aptTime;
 					}
 				}
 			});
 		</script>
+		<script>
+			function showCalendar(){
+				document.getElementById("myCalendar").style.display=""
+			}
+
+			function hideCalendar(){
+				document.getElementById("myCalendar").style.display="none"
+			}
+		</script>
+
+	<script>
+		var myCalendar = jsCalendar.new("#myCalendar", "now", {
+			"monthFormat": "month YYYY"
+		});
+		var aptDate = document.getElementById("aptDate");
+		myCalendar.onDateClick(function(event, date){
+			aptDate.value = jsCalendar.tools.dateToString(date, "yyyy-MM-DD");
+			location.href = "/studstop/cart?method=updateAptDate&aptDate=" + aptDate.value;
+		});
+	</script>
+
     </body>
 </html>

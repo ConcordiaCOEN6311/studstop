@@ -231,19 +231,27 @@
                                                 </div>
                                             </div>
                                             <div class="product-link">
-                                                <div class="product-button" th:if="${book.saleStock}>0">
-                                                    <a th:href="@{/cart(method='addCartItem',id=${book.bookId}, view='grid', catId=${session.catId},catName=${session.catName}, currentPage=${bookGridPage.currentPage})}" title="Add to shop cart"><i class="fa fa-shopping-cart"></i>Buy</a>
+												<div class="product-button" th:if="(${book.saleStock}>0) and (${book.rentStock}>0)">
+													<a th:href="@{/cart(method='addCartItem',id=${book.bookId}, view='grid', catId=${session.catId},catName=${session.catName}, currentPage=${bookGridPage.currentPage})}" title="Add to shop cart"><i class="fa fa-shopping-cart"></i>Buy</a>
 													<a th:href="@{/cart(method='addRentCartItem',id=${book.bookId}, view='grid', catId=${session.catId},catName=${session.catName}, currentPage=${bookGridPage.currentPage})}" title="Add to rent cart"><i class="fa fa-book"></i>Rent</a>
-                                                </div>
-												<div class="product-button" th:unless="${book.saleStock}>0">
+												</div>
+												<div class="product-button" th:if="(${book.saleStock}<1) and (${book.rentStock}<1)">
 													<a title="Out of stock"><i class="fa fa-shopping-bag"></i>Out of sale</a>
 												</div>
-                                                <div class="add-to-link">
-                                                    <ul>
-                                                        <li><a th:href="@{/book(method='toBookDetailPage',bookId=${book.bookId})}" title="Details"><i class="fa fa-external-link"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
+												<div class="product-button" th:if="(${book.saleStock}>0) and (${book.rentStock}<1)">
+													<a th:href="@{/cart(method='addCartItem',id=${book.bookId}, view='grid', catId=${session.catId},catName=${session.catName}, currentPage=${bookGridPage.currentPage})}" title="Add to shop cart"><i class="fa fa-shopping-cart"></i>Buy</a>
+													<a title="Out of stock"><i class="fa fa-shopping-bag"></i>Out of rent</a>
+												</div>
+												<div class="product-button" th:if="(${book.saleStock}<1) and (${book.rentStock}>0)">
+													<a title="Out of stock"><i class="fa fa-shopping-bag"></i>Out of sale</a>
+													<a th:href="@{/cart(method='addRentCartItem',id=${book.bookId}, view='grid', catId=${session.catId},catName=${session.catName}, currentPage=${bookGridPage.currentPage})}" title="Add to rent cart"><i class="fa fa-book"></i>Rent</a>
+												</div>
+												<div class="add-to-link">
+													<ul>
+														<li><a th:href="@{/book(method='toBookDetailPage',bookId=${book.bookId})}" title="Details"><i class="fa fa-external-link"></i></a></li>
+													</ul>
+												</div>
+											</div>
                                         </div>
                                         <!-- single-product-end -->
 							        </div>
@@ -445,10 +453,10 @@
 										<div class="select-option-part"></div>
 										<div class="quickview-color-wrap"></div>
 									</div>
-									<form action="@{/cart(method='addCartItem',id=${book.bookId})}">
+									<form th:action="@{cart(method='addCartItem',id=${book.bookId})}">
 										<div th:if="${book.saleStock} > 0">
 											<input type="number" value="1" />
-											<button>Add to cart</button>
+											<a th:href="@{/cart(method='addCartItem',id=${book.bookId}, view='grid', catId=${session.catId},catName=${session.catName}, currentPage=${bookGridPage.currentPage})}">Add to cart</a>
 										</div>
 									</form>
 									<span th:if="${book.saleStock} > 0"><i class="fa fa-check"></i> In stock</span>
