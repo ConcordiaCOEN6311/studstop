@@ -11,7 +11,7 @@ public interface StudentService {
 	 * @Param [student]
 	 * @return void
 	 */
-	void doRegister(Student student) throws Exception;
+	Student doRegister(Student student) throws Exception;
 
 	/**
 	 * @Author Wei Qi

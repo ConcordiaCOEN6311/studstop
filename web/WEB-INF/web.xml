@@ -43,7 +43,10 @@
         <servlet-name>OrderClientServlet</servlet-name>
         <servlet-class>com.concordia.servlet.model.OrderClientServlet</servlet-class>
     </servlet>
-
+    <servlet>
+        <servlet-name>RentClientServlet</servlet-name>
+        <servlet-class>com.concordia.servlet.model.RentClientServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PortalServlet</servlet-name>
         <url-pattern>/index.html</url-pattern>
@@ -67,5 +70,9 @@
     <servlet-mapping>
         <servlet-name>OrderClientServlet</servlet-name>
         <url-pattern>/protected/orderClient</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RentClientServlet</servlet-name>
+        <url-pattern>/protected/rentClient</url-pattern>
     </servlet-mapping>
 </web-app>

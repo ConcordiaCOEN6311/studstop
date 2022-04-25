@@ -143,10 +143,10 @@ public class CartServlet extends ModelBaseServlet {
 		RentalCart rentalCart = (RentalCart) request.getSession().getAttribute(MyConstants.RENTAL_CART_SESSION_KEY);
 
 		Book book = bookService.findBookById(id);
-		if(book.getRentStock()>newCount){
+		if(newCount < 8){
 			rentalCart.updateItemRentalDays(id,newCount);
 		}else {
-			request.setAttribute("errorMessage", "Update failed, we do not have enough stock");
+			request.setAttribute("errorMessage", "Update failed, we do not allow to rent book more than 7 days");
 		}
 
 		processTemplate("cart/rentalCart",request,response);
@@ -160,7 +160,7 @@ public class CartServlet extends ModelBaseServlet {
 	}
 
 	public void updateAptDate(HttpServletRequest request,HttpServletResponse response) throws Exception {
-		Date aptDate = Date.valueOf(request.getParameter("aptDate"));
+		String aptDate = request.getParameter("aptDate");
 		RentalCart rentalCart = (RentalCart) request.getSession().getAttribute(MyConstants.RENTAL_CART_SESSION_KEY);
 		rentalCart.setAppointmentDate(aptDate);
 		processTemplate("cart/rentalCart",request,response);

@@ -180,6 +180,13 @@
 										</tr>
 									</thead>
 									<tbody>
+									<tr th:if="${rentSequence} != null">
+										<td th:colspan="6">
+											<span style="font-weight: bold;font-size: large">Your appointment is confirmed, the track No. is: </span><a style="font-weight: bold;font-size: large" th:text="${rentSequence}"></a>
+										</td>
+									</tr>
+									</tbody>
+									<tbody>
 									<tr th:if="${session.rentalCart} == null">
 										<td th:colspan="6">
 											<a th:href="index.html">The cart is empty</a>
@@ -255,7 +262,7 @@
                                 </tbody>
                             </table>
                             <div class="wc-proceed-to-checkout">
-                                <a href="#">Proceed to Checkout</a>
+                                <a href="protected/rentClient?method=checkoutRentalCart">Proceed to Checkout</a>
                             </div>
                         </div>
                     </div>

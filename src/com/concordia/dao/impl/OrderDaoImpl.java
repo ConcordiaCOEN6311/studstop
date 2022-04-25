@@ -22,7 +22,6 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
 		PreparedStatement preparedStatement = null;
 		Connection connection = JDBCUtil.getConnection();
 		String sql = "insert into s_order(order_sequence,create_time,total_count,total_amount,order_status,s_id) values (?,?,?,?,?,?)";
-		System.out.println(order.toString());
 		try {
 			preparedStatement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			preparedStatement.setObject(1, order.getOrderSequence());

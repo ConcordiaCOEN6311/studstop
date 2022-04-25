@@ -9,7 +9,7 @@ import java.util.Set;
 public class RentalCart {
     private Map<Integer,RentalCartItem> rentalCartItemMap = new HashMap<>();
     private String appointmentTime;
-    private Date appointmentDate;
+    private String appointmentDate;
 
     @Override
     public String toString() {
@@ -28,11 +28,11 @@ public class RentalCart {
         this.appointmentTime = appointmentTime;
     }
 
-    public Date getAppointmentDate() {
+    public String getAppointmentDate() {
         return appointmentDate;
     }
 
-    public void setAppointmentDate(Date appointmentDate) {
+    public void setAppointmentDate(String appointmentDate) {
         this.appointmentDate = appointmentDate;
     }
 

@@ -14,10 +14,10 @@ import com.concordia.utils.MD5Util;
 public class StudentServiceImpl implements StudentService {
 	private StudentDao studentDao = new StudentDaoImpl();
 	@Override
-	public void doRegister(Student student) throws Exception {
+	public Student doRegister(Student student) throws Exception {
 		//verify if user exist
-		Student loginStudent = studentDao.findByEmail(student.getEmail());
-		if (loginStudent != null){
+		Student registerStudent = studentDao.findByEmail(student.getEmail());
+		if (registerStudent != null){
 			throw new RuntimeException("Email already exists, registration failed");
 		}
 
@@ -26,6 +26,9 @@ public class StudentServiceImpl implements StudentService {
 		String encodePwd = MD5Util.encode(oldStudentPwd);
 		student.setPassword(encodePwd);
 		studentDao.addStudent(student);
+
+		Student loginStudent = studentDao.findByEmail(student.getEmail());
+		return loginStudent;
 	}
 
 

@@ -44,10 +44,9 @@ public class UserServlet extends ModelBaseServlet {
 		Student student = new Student();
 		try {
 			BeanUtils.populate(student,parameterMap);
-			studentService.doRegister(student);
-			request.getSession().setAttribute(MyConstants.USER_SESSION_KEY,student);
+			Student loginUser = studentService.doRegister(student);
+			request.getSession().setAttribute(MyConstants.USER_SESSION_KEY,loginUser);
 			processTemplate("index",request,response);
-			//response.getWriter().write("Register success");
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage","Register Failed:" + e.getMessage());

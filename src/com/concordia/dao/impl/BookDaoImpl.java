@@ -68,6 +68,12 @@ public class BookDaoImpl extends BaseDao implements BookDao {
 		batchUpdate(sql,bookStocks);
 	}
 
+	@Override
+	public void updateBookRentalStocks(Object[][] rentalStocks) throws SQLException {
+		String sql = "update book set rent_stock=rent_stock-1 where book_id=?";
+		batchUpdate(sql,rentalStocks);
+	}
+
 }
 
 
