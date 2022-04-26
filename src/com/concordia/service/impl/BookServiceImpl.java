@@ -54,12 +54,12 @@ public class BookServiceImpl implements BookService {
 	 */
 
 	@Override
-	public Page findBookPageByName(int currentPage, int currentCount, String bookName) throws Exception {
+	public Page findBookPageByName(int currentPage, int currentCount, String bookName, int catId) throws Exception {
 		Page<Book> bookGridPage = new Page<>();
 		int bookTotalCount = bookDao.getBookTotalCountByName(bookName);
 		int bookTotalPage = (int) Math.ceil(1.0 * bookTotalCount / currentCount);
 		int index = (currentPage - 1) * currentCount;
-		List<Book> bookGridPageByName = bookDao.getBookPageByName(index,currentCount,bookName);
+		List<Book> bookGridPageByName = bookDao.getBookPageByName(index,currentCount,bookName, catId);
 
 		bookGridPage.setInfoList(bookGridPageByName);
 		bookGridPage.setCurrentPage(currentPage);
@@ -68,5 +68,10 @@ public class BookServiceImpl implements BookService {
 		bookGridPage.setTotalPage(bookTotalPage);
 
 		return bookGridPage;
+	}
+
+	@Override
+	public String findCatNameById(int catId) throws Exception {
+		return bookDao.getCatNameById(catId);
 	}
 }

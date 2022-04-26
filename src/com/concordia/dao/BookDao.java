@@ -13,8 +13,9 @@ public interface BookDao {
 	int getBookTotalCountByCatId(int catId) throws SQLException;
 	Book getBookById(Integer bookId);
 
-	List<Book> getBookPageByName(int index, int currentCount, String bookName) throws SQLException;
+	List<Book> getBookPageByName(int index, int currentCount, String bookName, int catId) throws SQLException;
 	int getBookTotalCountByName(String bookName) throws SQLException;
 	void updateBookStocks(Object[][] bookStocks) throws SQLException;
 	void updateBookRentalStocks(Object[][] rentalStocks) throws SQLException;
+	String getCatNameById(int catId) throws SQLException;
 }

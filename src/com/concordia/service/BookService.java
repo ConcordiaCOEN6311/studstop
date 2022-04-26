@@ -21,5 +21,6 @@ public interface BookService {
 	 * @return
 	 * @throws Exception
 	 */
-	Page findBookPageByName(int currentPage, int currentCount, String bookName) throws Exception;
+	Page findBookPageByName(int currentPage, int currentCount, String bookName, int catId) throws Exception;
+	String findCatNameById (int catId) throws Exception;
 }

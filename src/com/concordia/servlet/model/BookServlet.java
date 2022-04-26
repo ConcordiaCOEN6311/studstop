@@ -76,6 +76,8 @@ public class BookServlet extends ModelBaseServlet {
 
 		String cp = request.getParameter("currentPage");
 		String bookName = request.getParameter("bookName");
+		Integer catId = Integer.valueOf(request.getParameter("catId"));
+
 		int currentPage = 1;
 		if (cp != null) {
 			Integer cpInt = Integer.valueOf(cp);
@@ -84,12 +86,19 @@ public class BookServlet extends ModelBaseServlet {
 			}
 		}
 		int currentCount = 5;
-		Page<Book> bookListPage = bookService.findBookPageByName(currentPage, currentCount, bookName);
+		Page<Book> bookListPage = bookService.findBookPageByName(currentPage, currentCount, bookName, catId);
+		if(catId == 0){
+			request.getSession().setAttribute("catName", "All Category");
+		}else {
+			String catName = bookService.findCatNameById(catId);
+			request.getSession().setAttribute("catName", catName);
+		}
 		List<Book> infoList = bookListPage.getInfoList();
 		int index = (currentPage - 1) * currentCount;
 		request.setAttribute("bookListPage", bookListPage);
 		request.setAttribute("index",index);
 		request.getSession().setAttribute("bookName", bookName);
+		request.getSession().setAttribute("catId", catId);
 		processTemplate("book/search_list", request, response);
 
 	}
@@ -98,6 +107,7 @@ public class BookServlet extends ModelBaseServlet {
 
 		String cp = request.getParameter("currentPage");
 		String bookName = request.getParameter("bookName");
+		Integer catId = Integer.valueOf(request.getParameter("catId"));
 		int currentPage = 1;
 		if (cp != null) {
 			Integer cpInt = Integer.valueOf(cp);
@@ -106,12 +116,20 @@ public class BookServlet extends ModelBaseServlet {
 			}
 		}
 		int currentCount = 16;
-		Page<Book> bookGridPage= bookService.findBookPageByName(currentPage, currentCount, bookName);
+
+		Page<Book> bookGridPage= bookService.findBookPageByName(currentPage, currentCount, bookName, catId);
+		if(catId == 0){
+			request.getSession().setAttribute("catName", "All Category");
+		}else {
+			String catName = bookService.findCatNameById(catId);
+			request.getSession().setAttribute("catName", catName);
+		}
 		List<Book> infoList = bookGridPage.getInfoList();
 		int index = (currentPage - 1) * currentCount;
 		request.setAttribute("bookGridPage", bookGridPage);
 		request.setAttribute("index",index);
 		request.getSession().setAttribute("bookName", bookName);
+		request.getSession().setAttribute("catId", catId);
 		processTemplate("book/search_grid", request, response);
 
 	}

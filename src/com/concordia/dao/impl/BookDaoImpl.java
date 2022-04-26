@@ -49,10 +49,16 @@ public class BookDaoImpl extends BaseDao implements BookDao {
 	 */
 
 	@Override
-	public List<Book> getBookPageByName(int index, int currentCount, String bookName) throws SQLException {
+	public List<Book> getBookPageByName(int index, int currentCount, String bookName, int catId) throws SQLException {
 		String params ="%"+bookName+"%";
-		String sql = "select book_id as bookId,book_name as bookName,author,price,category_id as categoryId,sales,sale_stock as saleStock,rent_stock as rentStock,imgPath,discount,rate,description,create_date as creatDate,book_detail as bookDetail from book where book_name like ? limit ? , ?";
-		return getBeanList(Book.class,sql,params,index,currentCount);
+		if(catId == 0){
+			String sql = "select book_id as bookId,book_name as bookName,author,price,category_id as categoryId,sales,sale_stock as saleStock,rent_stock as rentStock,imgPath,discount,rate,description,create_date as creatDate,book_detail as bookDetail from book where book_name like ? limit ? , ?";
+			return getBeanList(Book.class,sql,params,index,currentCount);
+		}else{
+			String sql = "select book_id as bookId,book_name as bookName,author,price,category_id as categoryId,sales,sale_stock as saleStock,rent_stock as rentStock,imgPath,discount,rate,description,create_date as creatDate,book_detail as bookDetail from book where category_id=? and book_name like ? limit ? , ?";
+			return getBeanList(Book.class,sql,catId, params,index,currentCount);
+		}
+
 	}
 
 	@Override
@@ -72,6 +78,12 @@ public class BookDaoImpl extends BaseDao implements BookDao {
 	public void updateBookRentalStocks(Object[][] rentalStocks) throws SQLException {
 		String sql = "update book set rent_stock=rent_stock-1 where book_id=?";
 		batchUpdate(sql,rentalStocks);
+	}
+
+	@Override
+	public String getCatNameById(int catId) throws SQLException {
+		String sql = "select category_name as categoryName from category where category_id = ?";
+		return getSingleValue(sql,catId);
 	}
 
 }

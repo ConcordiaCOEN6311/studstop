@@ -93,6 +93,20 @@ public class BaseDao<T> {
 		}
 	}
 
+	public String getSingleValue(String sql,Object... params){
+		Connection connection = JDBCUtil.getConnection();
+		try {
+			String singleValue = (String) queryRunner.query(connection,sql,new ScalarHandler(),params);
+			return singleValue;
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		}finally {
+			JDBCUtil.releaseConnection(connection);
+		}
+	}
+
+
+
 	public int[] batchUpdate(String sql, Object[][] paramArr){
 		Connection connection = JDBCUtil.getConnection();
 		try {
